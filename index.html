@@ -74,7 +74,7 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#" id="nav-inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Início</a>
                         <a href="#" id="nav-fases" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Fases da Entrevista</a>
-                        <a href="#" id="nav-arvore" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Árvore de Competências</a>
+                        <a href="#" id="nav-arvore" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Matriz de Competências</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                         <button onclick="showLeadershipSection('fases')" class="mt-4 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">Ver Fases em Detalhe</button>
                     </div>
                     <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
-                        <h3 class="text-xl font-semibold text-indigo-800">🌳 Árvore de Competências para Avaliação</h3>
+                        <h3 class="text-xl font-semibold text-indigo-800">🌳 Matriz de Competências para Avaliação</h3>
                         <p class="mb-4">Explore as nossas essências culturais e investigue como os candidatos as demonstram em suas experiências, independentemente da senioridade.</p>
                          <button onclick="showLeadershipSection('arvore')" class="mt-4 inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">Explorar Competências</button>
                     </div>
@@ -115,7 +115,7 @@
 
         <section id="section-arvore" class="content-section">
             <div class="bg-white p-8 rounded-lg shadow-sm">
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">Árvore de Competências</h2>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Matriz de Competências</h2>
                 <p class="text-lg text-slate-600 mb-8">Selecione uma <b>Essência</b> para explorar as <b>Competências</b> e investigar como o candidato as aplica em suas experiências profissionais.</p>
                 
                 <div>
@@ -155,6 +155,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Executa tarefas simples e rotineiras.", "Segue instruções claras e procedimentos pré-definidos.", "Busca orientação do gestor ou de colegas mais experientes sempre que necessário."],
+                        regua: {
+                            4: "Supera as expectativas ao demonstrar iniciativa em tarefas simples e buscar aprender proativamente.",
+                            3: "Executa suas tarefas de forma consistente, seguindo as instruções e necessitando de pouca supervisão.",
+                            2: "Realiza as tarefas, mas depende de instruções detalhadas e acompanhamento constante.",
+                            1: "Apresenta dificuldade em completar tarefas mesmo com instruções claras."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Demonstra capacidade de realizar tarefas com supervisão, mas busca ativamente por orientação para garantir a qualidade.", "Assume responsabilidade por suas entregas, comunicando progressos e dificuldades.", "Organiza suas tarefas diárias para cumprir prazos estabelecidos."],
                         regua: {
@@ -217,6 +226,15 @@
                     perguntas: ["Qual foi o resultado mais impactante que você gerou nos últimos tempos?", "Fale sobre uma situação em que você teve que assumir a responsabilidade por um resultado negativo. Como você lidou com isso?"]
                 },
                 esperado: {
+                     "Assistente": {
+                        pistas: ["Identifica problemas óbvios em suas tarefas diárias.", "Aplica soluções conhecidas para problemas rotineiros.", "Segue procedimentos pré-definidos para resolver questões simples."],
+                        regua: {
+                            4: "Demonstra curiosidade e tenta resolver problemas simples de forma independente antes de pedir ajuda.",
+                            3: "Aplica soluções conhecidas de forma eficaz para problemas rotineiros.",
+                            2: "Consegue resolver problemas apenas com orientação passo a passo.",
+                            1: "Não demonstra capacidade de identificar ou resolver nem os problemas mais simples."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Demonstra habilidade para identificar problemas simples e seguir procedimentos para resolvê-los.", "Busca ajuda quando encontra dificuldades e aprende com a orientação recebida.", "Aplica soluções conhecidas para problemas rotineiros."],
                         regua: {
@@ -279,6 +297,15 @@
                     perguntas: ["Qual foi a decisão mais complexa que você tomou recentemente?", "Qual o maior risco que assumiu nos últimos meses?", "Fale sobre um problema bem difícil de resolver e como você fez para chegar a solução?"]
                 },
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Executa tarefas com atenção aos detalhes.", "Cumpre os prazos estabelecidos para suas atividades.", "Demonstra comprometimento com a qualidade do seu trabalho."],
+                        regua: {
+                            4: "Entrega tarefas com alta qualidade e antes do prazo, demonstrando grande comprometimento.",
+                            3: "Executa as tarefas com qualidade e dentro do prazo.",
+                            2: "Comete erros frequentes ou tem dificuldade em cumprir prazos.",
+                            1: "Demonstra falta de atenção e comprometimento com as entregas."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Executa tarefas com diligência e atenção aos detalhes, seguindo as diretrizes estabelecidas.", "Compromete-se com as decisões da equipe e contribui para o plano de ação.", "Busca entender o 'porquê' das tarefas para executá-las melhor."],
                         regua: {
@@ -338,6 +365,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Demonstra cortesia e educação no tratamento com o cliente (interno ou externo).", "Busca resolver as solicitações do cliente de forma eficiente.", "Segue scripts e procedimentos de atendimento."],
+                        regua: {
+                            4: "Demonstra empatia e vai além do esperado para garantir a satisfação do cliente em interações simples.",
+                            3: "Trata o cliente com cortesia e resolve suas solicitações de forma eficaz.",
+                            2: "Segue os procedimentos, mas não demonstra empatia ou interesse genuíno no cliente.",
+                            1: "Demonstra descaso ou impaciência no tratamento com o cliente."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Demonstra interesse em entender as necessidades básicas do cliente.", "Trata os clientes com cortesia e busca resolver suas solicitações.", "Entende como suas tarefas impactam diretamente o cliente."],
                         regua: {
@@ -400,6 +436,15 @@
                     perguntas: ["Descreva uma situação politicamente delicada em que você se envolveu.", "Fale de um conflito que você gerenciou envolvendo pares/superiores.", "Qual foi a negociação mais difícil que conduziu e como a conduziu?"]
                 },
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Compartilha informações relevantes para o trabalho do time.", "Contribui para um ambiente de trabalho positivo e respeitoso."],
+                        regua: {
+                            4: "Colabora proativamente com a equipe e se oferece para ajudar os colegas.",
+                            3: "Trabalha bem em equipe e se comunica de forma clara com os pares.",
+                            2: "Tem dificuldade de colaborar e prefere trabalhar de forma isolada.",
+                            1: "Cria conflitos ou não compartilha informações, prejudicando a equipe."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Constrói um bom relacionamento com seus pares diretos.", "Compartilha informações relevantes para o trabalho em equipe."],
                         regua: {
@@ -459,6 +504,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                     "Assistente": {
+                        pistas: ["Demonstra interesse em aprender com os colegas mais experientes.", "Está aberto a receber orientação e feedbacks.", "Participa ativamente de treinamentos e capacitações."],
+                        regua: {
+                            4: "Busca ativamente aprender com os outros e aplica os feedbacks recebidos para se desenvolver.",
+                            3: "Mostra-se aberto a aprender e a receber feedbacks.",
+                            2: "Aceita feedbacks, mas tem dificuldade em aplicá-los.",
+                            1: "É resistente a feedbacks e não demonstra interesse em se desenvolver."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Está aberto a ajudar e compartilhar conhecimento com colegas.", "Contribui para um ambiente de trabalho positivo e respeitoso.", "Recebe bem a orientação de profissionais mais experientes."],
                         regua: {
@@ -517,6 +571,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Trata todos os colegas com respeito e cordialidade.", "Usa uma comunicação clara e respeitosa.", "Contribui para um ambiente de trabalho harmonioso e inclusivo."],
+                        regua: {
+                            4: "Promove ativamente um ambiente respeitoso e é um exemplo de cordialidade.",
+                            3: "Trata todos de forma respeitosa e cordial no dia a dia.",
+                            2: "Pode, ocasionalmente, fazer comentários inadequados ou ser desatento.",
+                            1: "Demonstra comportamentos desrespeitosos com os colegas."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Trata todos os colegas com educação e cordialidade.", "Ouve os outros com atenção e sem interromper.", "É pontual e cumpre com seus compromissos com a equipe."],
                         regua: {
@@ -576,6 +639,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Demonstra iniciativa para aprender novas tarefas relacionadas à sua função.", "Sugere pequenas melhorias em suas atividades rotineiras.", "Mostra curiosidade e vontade de entender como as coisas funcionam."],
+                        regua: {
+                            4: "Sugere proativamente melhorias em processos e busca novas responsabilidades.",
+                            3: "Demonstra iniciativa para aprender e otimizar suas tarefas.",
+                            2: "Executa apenas o que é solicitado, sem demonstrar iniciativa.",
+                            1: "É passivo e resistente a novas tarefas ou mudanças."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Mostra iniciativa para aprender e assumir novas tarefas.", "Sugere pequenas melhorias em suas atividades rotineiras.", "É curioso e faz perguntas para entender melhor os processos."],
                         regua: {
@@ -638,6 +710,15 @@
                     perguntas: ["Fale sobre uma oportunidade de desenvolvimento em que você evoluiu.", "Como fez para melhorar em algum aspecto comportamental relevante para seu desempenho?"]
                 },
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Busca ativamente por conhecimento para aprimorar suas habilidades.", "Demonstra interesse em crescer profissionalmente.", "Pede ajuda e orientação para se desenvolver."],
+                        regua: {
+                            4: "Busca conhecimento por conta própria e demonstra um claro plano de desenvolvimento.",
+                            3: "Demonstra interesse em aprender e crescer na função.",
+                            2: "Espera que o desenvolvimento seja oferecido pela empresa, sem buscar ativamente.",
+                            1: "Não demonstra interesse em aprender ou se desenvolver."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Mostra curiosidade e disposição para aprender tarefas novas.", "Ouve atentamente os feedbacks e tenta aplicá-los.", "Busca ajuda para se desenvolver em pontos específicos."],
                         regua: {
@@ -700,6 +781,15 @@
                     perguntas: ["Como você se adaptou a última mudança que passou?", "Qual foi o seu papel nela?"]
                 },
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Adapta-se a novas tarefas e procedimentos quando orientado.", "Demonstra flexibilidade diante de pequenas mudanças na rotina.", "Mantém a compostura diante de imprevistos simples."],
+                        regua: {
+                            4: "Abraça as mudanças com atitude positiva e se adapta rapidamente sem impacto na performance.",
+                            3: "Adapta-se a mudanças e novas tarefas de forma eficaz.",
+                            2: "Demonstra resistência inicial a mudanças, mas acaba se adaptando.",
+                            1: "Resiste fortemente a mudanças e tem a performance afetada."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Aceita bem as mudanças de tarefas e prioridades.", "Mantém a calma diante de imprevistos rotineiros.", "Demonstra vontade de aprender o necessário para se adaptar."],
                         regua: {
@@ -759,6 +849,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Demonstra curiosidade para entender o que a empresa faz.", "Entende como suas tarefas contribuem para os objetivos da equipe.", "Faz perguntas para entender o contexto do seu trabalho."],
+                        regua: {
+                            4: "Busca ativamente entender o negócio e como sua área se conecta com outras.",
+                            3: "Demonstra curiosidade e entende a importância do seu trabalho para a equipe.",
+                            2: "Executa as tarefas sem entender o propósito ou o impacto.",
+                            1: "Não demonstra nenhum interesse no negócio ou nos objetivos da empresa."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Entende como suas tarefas se conectam com os objetivos da sua equipe.", "Mostra curiosidade sobre o negócio e como a empresa funciona.", "Realiza seu trabalho com consciência dos custos e recursos envolvidos."],
                         regua: {
@@ -817,6 +916,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Utiliza os recursos da empresa (material de escritório, equipamentos) de forma consciente.", "Evita desperdícios em suas atividades diárias.", "Segue as políticas de sustentabilidade e responsabilidade da empresa."],
+                        regua: {
+                            4: "Propõe pequenas ideias para economizar recursos ou ser mais sustentável.",
+                            3: "Utiliza os recursos de forma consciente e evita desperdícios.",
+                            2: "É descuidado com os recursos da empresa, gerando desperdício.",
+                            1: "Demonstra total descaso com os recursos e políticas da empresa."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Utiliza os recursos da empresa de forma consciente, evitando desperdícios óbvios.", "Segue as políticas de sustentabilidade e responsabilidade financeira da empresa.", "Reporta problemas ou oportunidades de melhoria que identifica."],
                         regua: {
@@ -875,6 +983,15 @@
                 ],
                 agilidade: null,
                 esperado: {
+                    "Assistente": {
+                        pistas: ["Trata todas as pessoas com respeito, independentemente de suas diferenças.", "Valoriza e respeita as opiniões dos colegas.", "Contribui para um ambiente de trabalho acolhedor."],
+                        regua: {
+                            4: "Promove ativamente a inclusão em pequenas atitudes e defende o respeito entre colegas.",
+                            3: "Trata todos com respeito e valoriza as diferenças.",
+                            2: "É indiferente ou pode fazer comentários que demonstram falta de consciência.",
+                            1: "Tem atitudes ou faz comentários que excluem ou desrespeitam os outros."
+                        }
+                    },
                     "Analista I / Dev I": {
                         pistas: ["Trata todos com respeito, independentemente de suas diferenças.", "Demonstra curiosidade e abertura para aprender sobre diferentes culturas e perspectivas.", "Evita piadas ou comentários que possam ser ofensivos."],
                         regua: {
@@ -927,7 +1044,7 @@
         const leadershipInterviewPhases = [
             {
                 title: "Fase 1: Preparação (Definindo o Alvo)",
-                content: "<b>Objetivo:</b> Entrar na conversa sabendo exatamente quais competências são cruciais para a vaga e para o seu time.<br><br><b>Ações Chave:</b><ul class='list-disc pl-5 mt-2 space-y-1'><li><b>Revise o DNA da Vaga:</b> Além do fit técnico, quais são as 3 competências comportamentais mais importantes para este desafio?</li><li><b>Conecte com a Carreira do Candidato:</b> Analise o histórico do candidato e identifique 2-3 experiências que podem revelar essas competências.</li><li><b>Prepare Suas Perguntas:</b> Use a 'Árvore de Competências' para selecionar perguntas que explorem a profundidade da experiência do candidato.</li></ul>"
+                content: "<b>Objetivo:</b> Entrar na conversa sabendo exatamente quais competências são cruciais para a vaga e para o seu time.<br><br><b>Ações Chave:</b><ul class='list-disc pl-5 mt-2 space-y-1'><li><b>Revise o DNA da Vaga:</b> Além do fit técnico, quais são as 3 competências comportamentais mais importantes para este desafio?</li><li><b>Conecte com a Carreira do Candidato:</b> Analise o histórico do candidato e identifique 2-3 experiências que podem revelar essas competências.</li><li><b>Prepare Suas Perguntas:</b> Use a 'Matriz de Competências' para selecionar perguntas que explorem a profundidade da experiência do candidato.</li></ul>"
             },
             {
                 title: "Fase 2: Abertura e Conexão (De Líder para Candidato - 5 min)",
@@ -939,7 +1056,7 @@
             },
             {
                 title: "Fase 4: Investigação de Competências (Avaliando o Potencial)",
-                content: "<b>Objetivo:</b> Coletar exemplos concretos de como o candidato pensa, age e colabora.<br><br><b>Como Fazer:</b><ul class='list-disc pl-5 mt-2 space-y-2'><li><b>Use a 'Árvore de Competências':</b> Faça as perguntas que você preparou para as competências-chave.</li><li><b>Explore a Experiência na Prática:</b> 'Pensando nesse desafio, me conte sobre a situação mais similar que você já vivenciou. Como você abordou o problema e quais foram os resultados?'</li><li><b>Aprofunde com o Método STAR:</b><br><b>S</b>ituação: 'Qual era o cenário?'<br><b>T</b>arefa: 'Qual era a sua responsabilidade?'<br><b>A</b>ção: 'Quais foram suas ações específicas? O que <b>VOCÊ</b> fez?'<br><b>R</b>esultado: 'Qual foi o impacto? (Quantifique!)'</li></ul>"
+                content: "<b>Objetivo:</b> Coletar exemplos concretos de como o candidato pensa, age e colabora.<br><br><b>Como Fazer:</b><ul class='list-disc pl-5 mt-2 space-y-2'><li><b>Use a 'Matriz de Competências':</b> Faça as perguntas que você preparou para as competências-chave.</li><li><b>Explore a Experiência na Prática:</b> 'Pensando nesse desafio, me conte sobre a situação mais similar que você já vivenciou. Como você abordou o problema e quais foram os resultados?'</li><li><b>Aprofunde com o Método STAR:</b><br><b>S</b>ituação: 'Qual era o cenário?'<br><b>T</b>arefa: 'Qual era a sua responsabilidade?'<br><b>A</b>ção: 'Quais foram suas ações específicas? O que <b>VOCÊ</b> fez?'<br><b>R</b>esultado: 'Qual foi o impacto? (Quantifique!)'</li></ul>"
             },
             {
                 title: "Fase 5: A Vez do Candidato (Avaliando o Fit Cultural - 10 min)",
