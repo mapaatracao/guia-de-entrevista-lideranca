@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de Entrevista para Liderança</title>
+    <title>Guia Interativo de Entrevista para Liderança</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +60,14 @@
             background-size: 1.5em 1.5em;
             padding-right: 2.5rem;
         }
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-button.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
     </style>
 </head>
 <body class="text-slate-700">
@@ -74,7 +82,7 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#" id="nav-inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Início</a>
                         <a href="#" id="nav-fases" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Fases da Entrevista</a>
-                        <a href="#" id="nav-arvore" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Matriz de Competências</a>
+                        <a href="#" id="nav-matriz" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-indigo-600">Matriz de Avaliação</a>
                     </div>
                 </div>
             </div>
@@ -92,12 +100,12 @@
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
                         <h3 class="text-xl font-semibold text-blue-800">🚀 As 6 Fases da Entrevista (Visão do Líder)</h3>
                         <p class="mb-4">Um roteiro para conduzir conversas estratégicas, focadas em avaliar o potencial e o alinhamento cultural do candidato com o time.</p>
-                        <button onclick="showLeadershipSection('fases')" class="mt-4 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">Ver Fases em Detalhe</button>
+                        <button data-section="fases" class="mt-4 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">Ver Fases em Detalhe</button>
                     </div>
                     <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
-                        <h3 class="text-xl font-semibold text-indigo-800">🌳 Matriz de Competências para Avaliação</h3>
+                        <h3 class="text-xl font-semibold text-indigo-800">🌳 Matriz de Avaliação</h3>
                         <p class="mb-4">Explore as nossas essências culturais e investigue como os candidatos as demonstram em suas experiências, independentemente da senioridade.</p>
-                         <button onclick="showLeadershipSection('arvore')" class="mt-4 inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">Explorar Competências</button>
+                         <button data-section="matriz" class="mt-4 inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">Explorar a Matriz</button>
                     </div>
                 </div>
             </div>
@@ -113,27 +121,51 @@
             </div>
         </section>
 
-        <section id="section-arvore" class="content-section">
+        <section id="section-matriz" class="content-section">
             <div class="bg-white p-8 rounded-lg shadow-sm">
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">Matriz de Competências</h2>
-                <p class="text-lg text-slate-600 mb-8">Selecione uma <b>Essência</b> para explorar as <b>Competências</b> e investigar como o candidato as aplica em suas experiências profissionais.</p>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Matriz de Avaliação</h2>
+                <p class="text-lg text-slate-600 mb-6">Navegue entre as abas para explorar as <b>Competências</b> (Fit Cultural) e as <b>Agilidades</b> (Potencial).</p>
                 
-                <div>
-                    <h3 class="text-xl font-semibold text-slate-700 mb-4 border-b-2 border-indigo-300 pb-2">1. Selecione a Essência (Base Cultural)</h3>
-                    <div id="essencias-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Essências will be injected here by JS -->
+                <!-- Abas de Navegação -->
+                <div class="mb-8 border-b border-slate-200">
+                    <div class="flex space-x-2">
+                        <button id="tab-competencias" class="tab-button active font-semibold py-2 px-4 rounded-t-lg">
+                            Essências e Competências
+                        </button>
+                        <button id="tab-agilidades" class="tab-button font-semibold py-2 px-4 rounded-t-lg bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            Agilidades
+                        </button>
                     </div>
                 </div>
 
-                <div id="competencias-section" class="mt-10 hidden">
-                    <h3 class="text-xl font-semibold text-slate-700 mb-4 border-b-2 border-indigo-300 pb-2">2. Explore a Competência</h3>
-                    <div id="competencias-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Competências will be injected here by JS -->
+                <!-- Conteúdo da Aba Competências -->
+                <div id="view-competencias" class="tab-view active">
+                    <p class="text-slate-600 mb-8">Selecione uma <b>Essência</b> para explorar as <b>Competências</b> e investigar como o candidato as aplica em suas experiências profissionais.</p>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-4 border-b-2 border-indigo-300 pb-2">1. Selecione a Essência (Base Cultural)</h3>
+                        <div id="essencias-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Essências will be injected here by JS -->
+                        </div>
+                    </div>
+
+                    <div id="competencias-section" class="mt-10 hidden">
+                        <h3 class="text-xl font-semibold text-slate-700 mb-4 border-b-2 border-indigo-300 pb-2">2. Explore a Competência</h3>
+                        <div id="competencias-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Competências will be injected here by JS -->
+                        </div>
+                    </div>
+                    
+                    <div id="detalhe-competencia-section" class="mt-10 hidden bg-slate-50 p-6 rounded-lg border">
+                        <!-- Detalhes da competência will be injected here by JS -->
                     </div>
                 </div>
                 
-                <div id="detalhe-competencia-section" class="mt-10 hidden bg-slate-50 p-6 rounded-lg border">
-                    <!-- Detalhes da competência will be injected here by JS -->
+                <!-- Conteúdo da Aba Agilidades -->
+                <div id="view-agilidades" class="tab-view hidden">
+                     <p class="text-slate-600 mb-8">Uma visão focada nos pilares de Potencial, extraídos da Matriz de Competências.</p>
+                     <div id="agilidades-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Cards de agilidade serão gerados via JavaScript -->
+                    </div>
                 </div>
 
             </div>
@@ -142,6 +174,7 @@
     </main>
 
     <script>
+        // --- BASE DE DADOS ---
         const leadershipSkillData = [
             // Essência: Somos Apaixonados pela execução
             {
@@ -155,60 +188,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Executa tarefas simples e rotineiras.", "Segue instruções claras e procedimentos pré-definidos.", "Busca orientação do gestor ou de colegas mais experientes sempre que necessário."],
-                        regua: {
-                            4: "Supera as expectativas ao demonstrar iniciativa em tarefas simples e buscar aprender proativamente.",
-                            3: "Executa suas tarefas de forma consistente, seguindo as instruções e necessitando de pouca supervisão.",
-                            2: "Realiza as tarefas, mas depende de instruções detalhadas e acompanhamento constante.",
-                            1: "Apresenta dificuldade em completar tarefas mesmo com instruções claras."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Demonstra capacidade de realizar tarefas com supervisão, mas busca ativamente por orientação para garantir a qualidade.", "Assume responsabilidade por suas entregas, comunicando progressos e dificuldades.", "Organiza suas tarefas diárias para cumprir prazos estabelecidos."],
-                        regua: {
-                            4: "Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.",
-                            3: "Trabalha com autonomia em tarefas de média complexidade, buscando alinhamento quando necessário.",
-                            2: "Demonstra capacidade de realizar tarefas com supervisão, mas busca ativamente por orientação.",
-                            1: "Apresenta dificuldade em realizar tarefas sem supervisão constante e não demonstra iniciativa."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Trabalha com autonomia em tarefas de média complexidade, buscando alinhamento quando necessário.", "Toma a iniciativa para resolver problemas que surgem em seu escopo de trabalho.", "Gerencia suas prioridades de forma eficaz, alinhando-as com os objetivos da equipe."],
-                        regua: {
-                            4: "Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes multifuncionais.",
-                            3: "Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.",
-                            2: "Trabalha com autonomia em tarefas de média complexidade, mas pode precisar de validação.",
-                            1: "Depende de direcionamento constante e tem dificuldade em tomar a iniciativa."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.", "Propõe melhorias e assume a liderança em projetos dentro de sua área.", "Prioriza suas atividades com base na estratégia da empresa, influenciando positivamente os resultados."],
-                        regua: {
-                            4: "Exerce autonomia estratégica, tomando decisões de alto impacto que moldam o futuro da sua área.",
-                            3: "Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes.",
-                            2: "Demonstra boa autonomia, mas hesita em tomar decisões de maior impacto.",
-                            1: "Mostra-se reativo e tem dificuldade em se antecipar às necessidades."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes multifuncionais.", "Identifica e resolve problemas complexos de forma independente, buscando otimizar processos.", "Conecta suas entregas com a estratégia de longo prazo da empresa, garantindo alinhamento e impacto."],
-                        regua: {
-                            4: "Exerce autonomia estratégica, tomando decisões de alto impacto e sendo referência.",
-                            3: "Atua com ampla autonomia, definindo o direcionamento de projetos complexos.",
-                            2: "É autônomo na maior parte do tempo, mas busca validação em decisões estratégicas.",
-                            1: "Apesar de sênior, demonstra necessidade de supervisão em projetos complexos."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Exerce autonomia estratégica, tomando decisões de alto impacto que moldam o futuro da sua área.", "É uma referência em proatividade e responsabilidade, inspirando outros a assumirem o protagonismo.", "Define prioridades que não apenas atendem, mas antecipam as necessidades estratégicas do negócio."],
-                        regua: {
-                            4: "Define novos padrões de autonomia e protagonismo para a organização.",
-                            3: "Exerce autonomia estratégica, tomando decisões de alto impacto com segurança.",
-                            2: "Toma decisões estratégicas, mas pode não comunicar ou alinhar de forma eficaz.",
-                            1: "Hesita em tomar decisões estratégicas, impactando a agilidade da área."
-                        }
-                    }
+                    "Assistente": { pistas: ["Executa tarefas simples e rotineiras.", "Segue instruções claras e procedimentos pré-definidos.", "Busca orientação do gestor ou de colegas mais experientes sempre que necessário."], regua: { 4: "Supera as expectativas ao demonstrar iniciativa em tarefas simples e buscar aprender proativamente.", 3: "Executa suas tarefas de forma consistente, seguindo as instruções e necessitando de pouca supervisão.", 2: "Realiza as tarefas, mas depende de instruções detalhadas e acompanhamento constante.", 1: "Apresenta dificuldade em completar tarefas mesmo com instruções claras." } },
+                    "Analista I / Dev I": { pistas: ["Demonstra capacidade de realizar tarefas com supervisão, mas busca ativamente por orientação para garantir a qualidade.", "Assume responsabilidade por suas entregas, comunicando progressos e dificuldades.", "Organiza suas tarefas diárias para cumprir prazos estabelecidos."], regua: { 4: "Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.", 3: "Trabalha com autonomia em tarefas de média complexidade, buscando alinhamento quando necessário.", 2: "Demonstra capacidade de realizar tarefas com supervisão, mas busca ativamente por orientação.", 1: "Apresenta dificuldade em realizar tarefas sem supervisão constante e não demonstra iniciativa." } },
+                    "Analista II / Dev II": { pistas: ["Trabalha com autonomia em tarefas de média complexidade, buscando alinhamento quando necessário.", "Toma a iniciativa para resolver problemas que surgem em seu escopo de trabalho.", "Gerencia suas prioridades de forma eficaz, alinhando-as com os objetivos da equipe."], regua: { 4: "Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes multifuncionais.", 3: "Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.", 2: "Trabalha com autonomia em tarefas de média complexidade, mas pode precisar de validação.", 1: "Depende de direcionamento constante e tem dificuldade em tomar a iniciativa." } },
+                    "Analista III / Dev III": { pistas: ["Demonstra total autonomia na execução de suas responsabilidades, envolvendo stakeholders de forma proativa.", "Propõe melhorias e assume a liderança em projetos dentro de sua área.", "Prioriza suas atividades com base na estratégia da empresa, influenciando positivamente os resultados."], regua: { 4: "Exerce autonomia estratégica, tomando decisões de alto impacto que moldam o futuro da sua área.", 3: "Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes.", 2: "Demonstra boa autonomia, mas hesita em tomar decisões de maior impacto.", 1: "Mostra-se reativo e tem dificuldade em se antecipar às necessidades." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Atua com ampla autonomia, definindo o direcionamento de projetos e envolvendo equipes multifuncionais.", "Identifica e resolve problemas complexos de forma independente, buscando otimizar processos.", "Conecta suas entregas com a estratégia de longo prazo da empresa, garantindo alinhamento e impacto."], regua: { 4: "Exerce autonomia estratégica, tomando decisões de alto impacto e sendo referência.", 3: "Atua com ampla autonomia, definindo o direcionamento de projetos complexos.", 2: "É autônomo na maior parte do tempo, mas busca validação em decisões estratégicas.", 1: "Apesar de sênior, demonstra necessidade de supervisão em projetos complexos." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Exerce autonomia estratégica, tomando decisões de alto impacto que moldam o futuro da sua área.", "É uma referência em proatividade e responsabilidade, inspirando outros a assumirem o protagonismo.", "Define prioridades que não apenas atendem, mas antecipam as necessidades estratégicas do negócio."], regua: { 4: "Define novos padrões de autonomia e protagonismo para a organização.", 3: "Exerce autonomia estratégica, tomando decisões de alto impacto com segurança.", 2: "Toma decisões estratégicas, mas pode não comunicar ou alinhar de forma eficaz.", 1: "Hesita em tomar decisões estratégicas, impactando a agilidade da área." } }
                 }
             },
             {
@@ -222,64 +207,16 @@
                 ],
                 agilidade: {
                     nome: "Resultados",
-                    conceito: "Tem senso de dono e assume a responsabilidade pelos resultados, mesmo em cenários adversos.",
-                    perguntas: ["Qual foi o resultado mais impactante que você gerou nos últimos tempos?", "Fale sobre uma situação em que você teve que assumir a responsabilidade por um resultado negativo. Como você lidou com isso?"]
+                    conceito: "Entrega resultados na adversidade.",
+                    perguntas: ["Qual foi o objetivo mais difícil de alcançar ultimamente?", "Fale sobre uma situação desafiadora em que teve que lidar com muita pressão.", "Descreva uma situação em que tenha tido que fazer acontecer sem todos os recursos necessários."]
                 },
                 esperado: {
-                     "Assistente": {
-                        pistas: ["Identifica problemas óbvios em suas tarefas diárias.", "Aplica soluções conhecidas para problemas rotineiros.", "Segue procedimentos pré-definidos para resolver questões simples."],
-                        regua: {
-                            4: "Demonstra curiosidade e tenta resolver problemas simples de forma independente antes de pedir ajuda.",
-                            3: "Aplica soluções conhecidas de forma eficaz para problemas rotineiros.",
-                            2: "Consegue resolver problemas apenas com orientação passo a passo.",
-                            1: "Não demonstra capacidade de identificar ou resolver nem os problemas mais simples."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Demonstra habilidade para identificar problemas simples e seguir procedimentos para resolvê-los.", "Busca ajuda quando encontra dificuldades e aprende com a orientação recebida.", "Aplica soluções conhecidas para problemas rotineiros."],
-                        regua: {
-                            4: "Aborda problemas complexos de forma estruturada, identificando a causa raiz e propondo soluções inovadoras.",
-                            3: "Analisa problemas de complexidade moderada, identificando diferentes facetas e propondo soluções eficazes.",
-                            2: "Identifica problemas simples e segue procedimentos para resolvê-los, mas tem dificuldade com o abstrato.",
-                            1: "Não demonstra capacidade de identificar ou resolver problemas de forma independente."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Analisa problemas de complexidade moderada, identificando diferentes facetas.", "Propõe e experimenta soluções, avaliando os resultados.", "Colabora com outros para resolver problemas que afetam a equipe."],
-                        regua: {
-                            4: "Antecipa problemas potenciais e atua de forma proativa para mitigá-los, com impacto em múltiplos projetos.",
-                            3: "Aborda problemas complexos de forma estruturada, desenvolvendo soluções criativas e eficazes.",
-                            2: "Resolve problemas de complexidade moderada, mas pode focar apenas na solução imediata.",
-                            1: "Tem dificuldade em analisar problemas de média complexidade sem ajuda."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Aborda problemas complexos de forma estruturada, identificando a causa raiz.", "Desenvolve e implementa soluções criativas e eficazes, aprendendo rapidamente com os resultados.", "Demonstra agilidade para ajustar a rota quando uma solução não funciona."],
-                        regua: {
-                            4: "Resolve problemas sistêmicos e altamente complexos, inovando com novas metodologias.",
-                            3: "Antecipa problemas potenciais e lidera a resolução de questões complexas que impactam a área.",
-                            2: "Resolve problemas complexos, mas pode não escalar o aprendizado ou comunicar a solução eficazmente.",
-                            1: "Luta para resolver problemas complexos de forma autônoma."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Antecipa problemas potenciais e atua de forma proativa para mitigá-los.", "Lidera a resolução de problemas complexos que impactam múltiplos projetos ou áreas.", "Utiliza dados e análises para fundamentar suas soluções e escalar o aprendizado."],
-                        regua: {
-                           4: "Resolve problemas sistêmicos e altamente complexos, com impacto estratégico para a organização.",
-                           3: "Antecipa problemas potenciais e lidera a resolução de questões complexas que impactam múltiplos projetos.",
-                           2: "É eficaz na resolução de problemas, mas pode não ter uma visão tão proativa ou estratégica.",
-                           1: "Apesar da senioridade, foca apenas nos problemas imediatos sem visão de futuro."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Resolve problemas sistêmicos e altamente complexos, com impacto estratégico para a organização.", "Inova na forma de resolver problemas, criando novas metodologias e frameworks.", "Dissemina o conhecimento sobre resolução de problemas, mentorando outros profissionais."],
-                        regua: {
-                            4: "Redefine a forma como a organização lida com problemas, criando frameworks e mentorando outros.",
-                            3: "Resolve problemas sistêmicos e altamente complexos, com impacto estratégico claro.",
-                            2: "É um excelente resolvedor de problemas, mas com menor impacto na disseminação de conhecimento.",
-                            1: "Tem dificuldade em lidar com a ambiguidade de problemas sistêmicos."
-                        }
-                    }
+                   "Assistente": { pistas: ["Identifica problemas óbvios em suas tarefas diárias.", "Aplica soluções conhecidas para problemas rotineiros.", "Segue procedimentos pré-definidos para resolver questões simples."], regua: { 4: "Demonstra curiosidade e tenta resolver problemas simples de forma independente antes de pedir ajuda.", 3: "Aplica soluções conhecidas de forma eficaz para problemas rotineiros.", 2: "Consegue resolver problemas apenas com orientação passo a passo.", 1: "Não demonstra capacidade de identificar ou resolver nem os problemas mais simples." } },
+                   "Analista I / Dev I": { pistas: ["Demonstra habilidade para identificar problemas simples e seguir procedimentos para resolvê-los.", "Busca ajuda quando encontra dificuldades e aprende com a orientação recebida.", "Aplica soluções conhecidas para problemas rotineiros."], regua: { 4: "Aborda problemas complexos de forma estruturada, identificando a causa raiz e propondo soluções inovadoras.", 3: "Analisa problemas de complexidade moderada, identificando diferentes facetas e propondo soluções eficazes.", 2: "Identifica problemas simples e segue procedimentos para resolvê-los, mas tem dificuldade com o abstrato.", 1: "Não demonstra capacidade de identificar ou resolver problemas de forma independente." } },
+                   "Analista II / Dev II": { pistas: ["Analisa problemas de complexidade moderada, identificando diferentes facetas.", "Propõe e experimenta soluções, avaliando os resultados.", "Colabora com outros para resolver problemas que afetam a equipe."], regua: { 4: "Antecipa problemas potenciais e atua de forma proativa para mitigá-los, com impacto em múltiplos projetos.", 3: "Aborda problemas complexos de forma estruturada, desenvolvendo soluções criativas e eficazes.", 2: "Resolve problemas de complexidade moderada, mas pode focar apenas na solução imediata.", 1: "Tem dificuldade em analisar problemas de média complexidade sem ajuda." } },
+                   "Analista III / Dev III": { pistas: ["Aborda problemas complexos de forma estruturada, identificando a causa raiz.", "Desenvolve e implementa soluções criativas e eficazes, aprendendo rapidamente com os resultados.", "Demonstra agilidade para ajustar a rota quando uma solução não funciona."], regua: { 4: "Resolve problemas sistêmicos e altamente complexos, inovando com novas metodologias.", 3: "Antecipa problemas potenciais e lidera a resolução de questões complexas que impactam a área.", 2: "Resolve problemas complexos, mas pode não escalar o aprendizado ou comunicar a solução eficazmente.", 1: "Luta para resolver problemas complexos de forma autônoma." } },
+                   "Especialista I / Developer Specialist I": { pistas: ["Antecipa problemas potenciais e atua de forma proativa para mitigá-los.", "Lidera a resolução de problemas complexos que impactam múltiplos projetos ou áreas.", "Utiliza dados e análises para fundamentar suas soluções e escalar o aprendizado."], regua: { 4: "Resolve problemas sistêmicos e altamente complexos, com impacto estratégico para a organização.", 3: "Antecipa problemas potenciais e lidera a resolução de questões complexas que impactam múltiplos projetos.", 2: "É eficaz na resolução de problemas, mas pode não ter uma visão tão proativa ou estratégica.", 1: "Apesar da senioridade, foca apenas nos problemas imediatos sem visão de futuro." } },
+                   "Especialista II / Developer Specialist II": { pistas: ["Resolve problemas sistêmicos e altamente complexos, com impacto estratégico para a organização.", "Inova na forma de resolver problemas, criando novas metodologias e frameworks.", "Dissemina o conhecimento sobre resolução de problemas, mentorando outros profissionais."], regua: { 4: "Redefine a forma como a organização lida com problemas, criando frameworks e mentorando outros.", 3: "Resolve problemas sistêmicos e altamente complexos, com impacto estratégico claro.", 2: "É um excelente resolvedor de problemas, mas com menor impacto na disseminação de conhecimento.", 1: "Tem dificuldade em lidar com a ambiguidade de problemas sistêmicos." } }
                 }
             },
             {
@@ -297,60 +234,12 @@
                     perguntas: ["Qual foi a decisão mais complexa que você tomou recentemente?", "Qual o maior risco que assumiu nos últimos meses?", "Fale sobre um problema bem difícil de resolver e como você fez para chegar a solução?"]
                 },
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Executa tarefas com atenção aos detalhes.", "Cumpre os prazos estabelecidos para suas atividades.", "Demonstra comprometimento com a qualidade do seu trabalho."],
-                        regua: {
-                            4: "Entrega tarefas com alta qualidade e antes do prazo, demonstrando grande comprometimento.",
-                            3: "Executa as tarefas com qualidade e dentro do prazo.",
-                            2: "Comete erros frequentes ou tem dificuldade em cumprir prazos.",
-                            1: "Demonstra falta de atenção e comprometimento com as entregas."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Executa tarefas com diligência e atenção aos detalhes, seguindo as diretrizes estabelecidas.", "Compromete-se com as decisões da equipe e contribui para o plano de ação.", "Busca entender o 'porquê' das tarefas para executá-las melhor."],
-                        regua: {
-                            4: "Desafia o status quo com argumentos bem fundamentados, mas se compromete totalmente com a direção final.",
-                            3: "Questiona de forma construtiva para garantir a melhor abordagem antes da execução.",
-                            2: "Executa tarefas com diligência, mas raramente questiona ou propõe melhorias.",
-                            1: "Apresenta dificuldade em manter o foco e a qualidade nas entregas."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Questiona de forma construtiva para garantir a melhor abordagem antes da execução.", "Mantém o foco e a disciplina para entregar com qualidade, mesmo em tarefas complexas.", "Propõe pequenas melhorias nos processos existentes para aumentar a eficiência."],
-                        regua: {
-                            4: "Lidera pelo exemplo, demonstrando alto comprometimento com a execução e a qualidade.",
-                            3: "Desafia o status quo com argumentos bem fundamentados e se compromete com a direção final.",
-                            2: "Questiona de forma construtiva, mas pode ter dificuldade em se comprometer se discordar.",
-                            1: "Resiste a decisões com as quais não concorda, impactando a execução."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Desafia o status quo com argumentos bem fundamentados, mas se compromete totalmente com a direção final.", "Busca ativamente por maneiras de inovar e otimizar as entregas.", "Equilibra velocidade e qualidade, garantindo uma execução precisa e ágil."],
-                        regua: {
-                            4: "Define os padrões de excelência na execução para toda a área.",
-                            3: "Lidera pelo exemplo, demonstrando alto comprometimento e inspirando a equipe.",
-                            2: "Busca inovar, mas pode perder o foco na qualidade da execução.",
-                            1: "Tem dificuldade em equilibrar velocidade e qualidade."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Lidera pelo exemplo, demonstrando alto comprometimento com a execução e a qualidade.", "Cria um ambiente onde o questionamento construtivo é incentivado para refinar a estratégia.", "É referência em disciplina e foco, inspirando a equipe a alcançar a excelência."],
-                        regua: {
-                            4: "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.",
-                            3: "Define os padrões de excelência na execução para a sua área de atuação.",
-                            2: "É uma referência em execução, mas com pouca influência sobre a cultura da equipe.",
-                            1: "Não consegue inspirar ou garantir o comprometimento da equipe."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Define os padrões de excelência na execução para toda a área.", "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.", "Fomenta uma cultura de melhoria contínua e inovação na execução."],
-                        regua: {
-                            4: "Cria uma cultura de melhoria contínua e inovação na execução em toda a organização.",
-                            3: "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.",
-                            2: "Define padrões de excelência, mas tem dificuldade em disseminar essa cultura.",
-                            1: "Foca em sua própria execução, sem impacto cultural mais amplo."
-                        }
-                    }
+                    "Assistente": { pistas: ["Executa tarefas com atenção aos detalhes.", "Cumpre os prazos estabelecidos para suas atividades.", "Demonstra comprometimento com a qualidade do seu trabalho."], regua: { 4: "Entrega tarefas com alta qualidade e antes do prazo, demonstrando grande comprometimento.", 3: "Executa as tarefas com qualidade e dentro do prazo.", 2: "Comete erros frequentes ou tem dificuldade em cumprir prazos.", 1: "Demonstra falta de atenção e comprometimento com as entregas." } },
+                    "Analista I / Dev I": { pistas: ["Executa tarefas com diligência e atenção aos detalhes, seguindo as diretrizes estabelecidas.", "Compromete-se com as decisões da equipe e contribui para o plano de ação.", "Busca entender o 'porquê' das tarefas para executá-las melhor."], regua: { 4: "Desafia o status quo com argumentos bem fundamentados, mas se compromete totalmente com a direção final.", 3: "Questiona de forma construtiva para garantir a melhor abordagem antes da execução.", 2: "Executa tarefas com diligência, mas raramente questiona ou propõe melhorias.", 1: "Apresenta dificuldade em manter o foco e a qualidade nas entregas." } },
+                    "Analista II / Dev II": { pistas: ["Questiona de forma construtiva para garantir a melhor abordagem antes da execução.", "Mantém o foco e a disciplina para entregar com qualidade, mesmo em tarefas complexas.", "Propõe pequenas melhorias nos processos existentes para aumentar a eficiência."], regua: { 4: "Lidera pelo exemplo, demonstrando alto comprometimento com a execução e a qualidade.", 3: "Desafia o status quo com argumentos bem fundamentados e se compromete com a direção final.", 2: "Questiona de forma construtiva, mas pode ter dificuldade em se comprometer se discordar.", 1: "Resiste a decisões com as quais não concorda, impactando a execução." } },
+                    "Analista III / Dev III": { pistas: ["Desafia o status quo com argumentos bem fundamentados, mas se compromete totalmente com a direção final.", "Busca ativamente por maneiras de inovar e otimizar as entregas.", "Equilibra velocidade e qualidade, garantindo uma execução precisa e ágil."], regua: { 4: "Define os padrões de excelência na execução para toda a área.", 3: "Lidera pelo exemplo, demonstrando alto comprometimento e inspirando a equipe.", 2: "Busca inovar, mas pode perder o foco na qualidade da execução.", 1: "Tem dificuldade em equilibrar velocidade e qualidade." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Lidera pelo exemplo, demonstrando alto comprometimento com a execução e a qualidade.", "Cria um ambiente onde o questionamento construtivo é incentivado para refinar a estratégia.", "É referência em disciplina e foco, inspirando a equipe a alcançar a excelência."], regua: { 4: "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.", 3: "Define os padrões de excelência na execução para a sua área de atuação.", 2: "É uma referência em execução, mas com pouca influência sobre a cultura da equipe.", 1: "Não consegue inspirar ou garantir o comprometimento da equipe." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Define os padrões de excelência na execução para toda a área.", "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.", "Fomenta uma cultura de melhoria contínua e inovação na execução."], regua: { 4: "Cria uma cultura de melhoria contínua e inovação na execução em toda a organização.", 3: "Transforma o comprometimento da equipe em resultados de alto impacto para o negócio.", 2: "Define padrões de excelência, mas tem dificuldade em disseminar essa cultura.", 1: "Foca em sua própria execução, sem impacto cultural mais amplo." } }
                 }
             },
             // Essência: Fazemos os olhos dos nossos clientes brilharem
@@ -365,60 +254,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Demonstra cortesia e educação no tratamento com o cliente (interno ou externo).", "Busca resolver as solicitações do cliente de forma eficiente.", "Segue scripts e procedimentos de atendimento."],
-                        regua: {
-                            4: "Demonstra empatia e vai além do esperado para garantir a satisfação do cliente em interações simples.",
-                            3: "Trata o cliente com cortesia e resolve suas solicitações de forma eficaz.",
-                            2: "Segue os procedimentos, mas não demonstra empatia ou interesse genuíno no cliente.",
-                            1: "Demonstra descaso ou impaciência no tratamento com o cliente."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Demonstra interesse em entender as necessidades básicas do cliente.", "Trata os clientes com cortesia e busca resolver suas solicitações.", "Entende como suas tarefas impactam diretamente o cliente."],
-                        regua: {
-                            4: "Antecipa as necessidades dos clientes e propõe soluções que os encantam.",
-                            3: "Busca ativamente ouvir o cliente para entender suas dores e expectativas.",
-                            2: "Demonstra interesse nas necessidades do cliente, mas age de forma reativa.",
-                            1: "Mostra pouco ou nenhum interesse em entender a perspectiva do cliente."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Busca ativamente ouvir o cliente para entender suas dores e expectativas.", "Utiliza o feedback do cliente para propor melhorias em seu trabalho.", "Colabora com a equipe para entregar uma boa experiência ao cliente."],
-                        regua: {
-                            4: "É a voz do cliente dentro da empresa, influenciando decisões estratégicas.",
-                            3: "Antecipa as necessidades dos clientes e propõe soluções que os encantam.",
-                            2: "Utiliza o feedback do cliente para melhorias, mas não antecipa necessidades.",
-                            1: "Tem dificuldade em traduzir o feedback do cliente em ações práticas."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Antecipa as necessidades dos clientes e propõe soluções que os encantam.", "Utiliza dados e informações sobre o cliente para tomar decisões.", "Engaja outras áreas para construir soluções integradas para o cliente."],
-                        regua: {
-                            4: "Define a estratégia de experiência do cliente para a sua área de atuação.",
-                            3: "É a voz do cliente na empresa, influenciando decisões com dados e empatia.",
-                            2: "Usa dados do cliente para tomar decisões, mas com pouca influência sobre outras áreas.",
-                            1: "Foca nas tarefas sem conectar com o impacto final no cliente."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["É a voz do cliente dentro da empresa, influenciando decisões estratégicas.", "Cria mecanismos para coletar e analisar a percepção do cliente de forma contínua.", "Desenvolve soluções inovadoras que estabelecem um novo padrão de experiência para o cliente."],
-                        regua: {
-                            4: "Inspira toda a organização a colocar o cliente no centro de tudo.",
-                            3: "Define a estratégia de experiência do cliente para sua área de atuação.",
-                            2: "Influencia decisões estratégicas, mas com dificuldade em criar novos mecanismos de coleta.",
-                            1: "Não consegue traduzir sua visão do cliente em influência estratégica."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Define a estratégia de experiência do cliente para a sua área de atuação.", "Inspira toda a organização a colocar o cliente no centro de tudo.", "Transforma insights profundos sobre o cliente em vantagens competitivas para o negócio."],
-                        regua: {
-                            4: "Transforma insights profundos sobre o cliente em vantagens competitivas para o negócio.",
-                            3: "Inspira a organização a colocar o cliente no centro, definindo a estratégia.",
-                            2: "Define a estratégia, mas tem dificuldade em inspirar e engajar toda a organização.",
-                            1: "Sua visão estratégica do cliente não se traduz em vantagem competitiva."
-                        }
-                    }
+                    "Assistente": { pistas: ["Demonstra cortesia e educação no tratamento com o cliente (interno ou externo).", "Busca resolver as solicitações do cliente de forma eficiente.", "Segue scripts e procedimentos de atendimento."], regua: { 4: "Demonstra empatia e vai além do esperado para garantir a satisfação do cliente em interações simples.", 3: "Trata o cliente com cortesia e resolve suas solicitações de forma eficaz.", 2: "Segue os procedimentos, mas não demonstra empatia ou interesse genuíno no cliente.", 1: "Demonstra descaso ou impaciência no tratamento com o cliente." } },
+                    "Analista I / Dev I": { pistas: ["Demonstra interesse em entender as necessidades básicas do cliente.", "Trata os clientes com cortesia e busca resolver suas solicitações.", "Entende como suas tarefas impactam diretamente o cliente."], regua: { 4: "Antecipa as necessidades dos clientes e propõe soluções que os encantam.", 3: "Busca ativamente ouvir o cliente para entender suas dores e expectativas.", 2: "Demonstra interesse nas necessidades do cliente, mas age de forma reativa.", 1: "Mostra pouco ou nenhum interesse em entender a perspectiva do cliente." } },
+                    "Analista II / Dev II": { pistas: ["Busca ativamente ouvir o cliente para entender suas dores e expectativas.", "Utiliza o feedback do cliente para propor melhorias em seu trabalho.", "Colabora com a equipe para entregar uma boa experiência ao cliente."], regua: { 4: "É a voz do cliente dentro da empresa, influenciando decisões estratégicas.", 3: "Antecipa as necessidades dos clientes e propõe soluções que os encantam.", 2: "Utiliza o feedback do cliente para melhorias, mas não antecipa necessidades.", 1: "Tem dificuldade em traduzir o feedback do cliente em ações práticas." } },
+                    "Analista III / Dev III": { pistas: ["Antecipa as necessidades dos clientes e propõe soluções que os encantam.", "Utiliza dados e informações sobre o cliente para tomar decisões.", "Engaja outras áreas para construir soluções integradas para o cliente."], regua: { 4: "Define a estratégia de experiência do cliente para a sua área de atuação.", 3: "É a voz do cliente na empresa, influenciando decisões com dados e empatia.", 2: "Usa dados do cliente para tomar decisões, mas com pouca influência sobre outras áreas.", 1: "Foca nas tarefas sem conectar com o impacto final no cliente." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["É a voz do cliente dentro da empresa, influenciando decisões estratégicas.", "Cria mecanismos para coletar e analisar a percepção do cliente de forma contínua.", "Desenvolve soluções inovadoras que estabelecem um novo padrão de experiência para o cliente."], regua: { 4: "Inspira toda a organização a colocar o cliente no centro de tudo.", 3: "Define a estratégia de experiência do cliente para sua área de atuação.", 2: "Influencia decisões estratégicas, mas com dificuldade em criar novos mecanismos de coleta.", 1: "Não consegue traduzir sua visão do cliente em influência estratégica." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Define a estratégia de experiência do cliente para a sua área de atuação.", "Inspira toda a organização a colocar o cliente no centro de tudo.", "Transforma insights profundos sobre o cliente em vantagens competitivas para o negócio."], regua: { 4: "Transforma insights profundos sobre o cliente em vantagens competitivas para o negócio.", 3: "Inspira a organização a colocar o cliente no centro, definindo a estratégia.", 2: "Define a estratégia, mas tem dificuldade em inspirar e engajar toda a organização.", 1: "Sua visão estratégica do cliente não se traduz em vantagem competitiva." } }
                 }
             },
             {
@@ -436,63 +277,15 @@
                     perguntas: ["Descreva uma situação politicamente delicada em que você se envolveu.", "Fale de um conflito que você gerenciou envolvendo pares/superiores.", "Qual foi a negociação mais difícil que conduziu e como a conduziu?"]
                 },
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Compartilha informações relevantes para o trabalho do time.", "Contribui para um ambiente de trabalho positivo e respeitoso."],
-                        regua: {
-                            4: "Colabora proativamente com a equipe e se oferece para ajudar os colegas.",
-                            3: "Trabalha bem em equipe e se comunica de forma clara com os pares.",
-                            2: "Tem dificuldade de colaborar e prefere trabalhar de forma isolada.",
-                            1: "Cria conflitos ou não compartilha informações, prejudicando a equipe."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Constrói um bom relacionamento com seus pares diretos.", "Compartilha informações relevantes para o trabalho em equipe."],
-                        regua: {
-                            4: "Constrói e nutre uma rede de contatos em diferentes áreas, influenciando decisões.",
-                            3: "Interage com colegas de outras áreas para realizar suas tarefas e entender suas prioridades.",
-                            2: "Colabora bem com a equipe imediata, mas tem pouca interação com outras áreas.",
-                            1: "Trabalha de forma isolada e tem dificuldade de colaborar."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Interage com colegas de outras áreas para realizar suas tarefas.", "Busca entender as necessidades e prioridades de outras equipes.", "Participa de projetos que envolvem colaboração multifuncional."],
-                        regua: {
-                            4: "Lidera iniciativas que exigem alta colaboração e alinhamento multifuncional.",
-                            3: "Constrói e nutre uma rede de contatos, atuando como ponto de conexão entre áreas.",
-                            2: "Busca entender outras equipes, mas tem dificuldade em influenciar ou negociar.",
-                            1: "Participa de projetos multifuncionais de forma passiva."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Constrói e nutre uma rede de contatos em diferentes áreas da empresa.", "Influencia decisões que dependem da colaboração entre equipes.", "Atua como um ponto de conexão, facilitando a comunicação entre áreas."],
-                        regua: {
-                            4: "Cria e fortalece alianças estratégicas que geram valor para o negócio.",
-                            3: "Lidera iniciativas que exigem alta colaboração, mapeando e engajando stakeholders.",
-                            2: "Influencia decisões, mas pode ter dificuldade em mediar conflitos complexos.",
-                            1: "Tem uma boa rede de contatos, mas não a utiliza para influenciar decisões."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Lidera iniciativas que exigem alta colaboração e alinhamento multifuncional.", "Mapeia e engaja stakeholders-chave para garantir o sucesso de projetos estratégicos.", "Media conflitos e negocia soluções que beneficiam todo o ecossistema."],
-                        regua: {
-                            4: "Promove uma cultura de colaboração que transcende as barreiras organizacionais.",
-                            3: "Cria e fortalece alianças estratégicas que geram valor para o negócio.",
-                            2: "Lidera iniciativas multifuncionais, mas focado apenas nos resultados do projeto.",
-                            1: "Tem dificuldade em gerenciar stakeholders e mediar conflitos de interesse."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Cria e fortalece alianças estratégicas que geram valor para o negócio.", "É uma referência em influência e colaboração, sendo procurado para resolver impasses complexos.", "Promove uma cultura de colaboração que transcende as barreiras organizacionais."],
-                        regua: {
-                            4: "É uma referência em influência, promovendo uma cultura de colaboração em toda a empresa.",
-                            3: "Cria e fortalece alianças estratégicas, sendo procurado para resolver impasses.",
-                            2: "Constrói alianças estratégicas, mas com menor impacto na cultura organizacional.",
-                            1: "Não consegue transformar sua influência em alianças estratégicas duradouras."
-                        }
-                    }
+                    "Assistente": { pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Compartilha informações relevantes para o trabalho do time.", "Contribui para um ambiente de trabalho positivo e respeitoso."], regua: { 4: "Colabora proativamente com a equipe e se oferece para ajudar os colegas.", 3: "Trabalha bem em equipe e se comunica de forma clara com os pares.", 2: "Tem dificuldade de colaborar e prefere trabalhar de forma isolada.", 1: "Cria conflitos ou não compartilha informações, prejudicando a equipe." } },
+                    "Analista I / Dev I": { pistas: ["Colabora de forma eficaz com os membros da sua equipe imediata.", "Constrói um bom relacionamento com seus pares diretos.", "Compartilha informações relevantes para o trabalho em equipe."], regua: { 4: "Constrói e nutre uma rede de contatos em diferentes áreas, influenciando decisões.", 3: "Interage com colegas de outras áreas para realizar suas tarefas e entender suas prioridades.", 2: "Colabora bem com a equipe imediata, mas tem pouca interação com outras áreas.", 1: "Trabalha de forma isolada e tem dificuldade de colaborar." } },
+                    "Analista II / Dev II": { pistas: ["Interage com colegas de outras áreas para realizar suas tarefas.", "Busca entender as necessidades e prioridades de outras equipes.", "Participa de projetos que envolvem colaboração multifuncional."], regua: { 4: "Lidera iniciativas que exigem alta colaboração e alinhamento multifuncional.", 3: "Constrói e nutre uma rede de contatos, atuando como ponto de conexão entre áreas.", 2: "Busca entender outras equipes, mas tem dificuldade em influenciar ou negociar.", 1: "Participa de projetos multifuncionais de forma passiva." } },
+                    "Analista III / Dev III": { pistas: ["Constrói e nutre uma rede de contatos em diferentes áreas da empresa.", "Influencia decisões que dependem da colaboração entre equipes.", "Atua como um ponto de conexão, facilitando a comunicação entre áreas."], regua: { 4: "Cria e fortalece alianças estratégicas que geram valor para o negócio.", 3: "Lidera iniciativas que exigem alta colaboração, mapeando e engajando stakeholders.", 2: "Influencia decisões, mas pode ter dificuldade em mediar conflitos complexos.", 1: "Tem uma boa rede de contatos, mas não a utiliza para influenciar decisões." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Lidera iniciativas que exigem alta colaboração e alinhamento multifuncional.", "Mapeia e engaja stakeholders-chave para garantir o sucesso de projetos estratégicos.", "Media conflitos e negocia soluções que beneficiam todo o ecossistema."], regua: { 4: "Promove uma cultura de colaboração que transcende as barreiras organizacionais.", 3: "Cria e fortalece alianças estratégicas que geram valor para o negócio.", 2: "Lidera iniciativas multifuncionais, mas focado apenas nos resultados do projeto.", 1: "Tem dificuldade em gerenciar stakeholders e mediar conflitos de interesse." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Cria e fortalece alianças estratégicas que geram valor para o negócio.", "É uma referência em influência e colaboração, sendo procurado para resolver impasses complexos.", "Promove uma cultura de colaboração que transcende as barreiras organizacionais."], regua: { 4: "É uma referência em influência, promovendo uma cultura de colaboração em toda a empresa.", 3: "Cria e fortalece alianças estratégicas, sendo procurado para resolver impasses.", 2: "Constrói alianças estratégicas, mas com menor impacto na cultura organizacional.", 1: "Não consegue transformar sua influência em alianças estratégicas duradouras." } }
                 }
             },
-             // Essência: Nutrimos nossas relações
+            // Essência: Nutrimos nossas relações
             {
                 essencia: "Nutrimos nossas relações",
                 competencia: "Desenvolvimento e Gestão de Pessoas",
@@ -504,60 +297,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                     "Assistente": {
-                        pistas: ["Demonstra interesse em aprender com os colegas mais experientes.", "Está aberto a receber orientação e feedbacks.", "Participa ativamente de treinamentos e capacitações."],
-                        regua: {
-                            4: "Busca ativamente aprender com os outros e aplica os feedbacks recebidos para se desenvolver.",
-                            3: "Mostra-se aberto a aprender e a receber feedbacks.",
-                            2: "Aceita feedbacks, mas tem dificuldade em aplicá-los.",
-                            1: "É resistente a feedbacks e não demonstra interesse em se desenvolver."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Está aberto a ajudar e compartilhar conhecimento com colegas.", "Contribui para um ambiente de trabalho positivo e respeitoso.", "Recebe bem a orientação de profissionais mais experientes."],
-                        regua: {
-                            4: "Identifica oportunidades de desenvolvimento para si e para os colegas, atuando como mentor informal.",
-                            3: "Oferece ajuda proativamente e participa da integração de novos membros.",
-                            2: "Está aberto a ajudar, mas raramente toma a iniciativa.",
-                            1: "Mostra pouco interesse em compartilhar conhecimento ou ajudar colegas."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Oferece ajuda proativamente aos colegas e participa da integração de novos membros.", "Compartilha aprendizados e boas práticas com a equipe.", "Dá e recebe feedbacks de forma construtiva entre pares."],
-                        regua: {
-                            4: "Estrutura processos de desenvolvimento e mentoria para a equipe.",
-                            3: "Identifica oportunidades de desenvolvimento e atua como mentor informal.",
-                            2: "Compartilha aprendizados, mas tem dificuldade em dar feedbacks construtivos.",
-                            1: "Foca apenas em seu próprio desenvolvimento, sem contribuir com o time."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Identifica oportunidades de desenvolvimento para si e para os colegas.", "Atua como mentor informal para profissionais menos experientes.", "Promove ativamente a colaboração e o compartilhamento de conhecimento na equipe."],
-                        regua: {
-                            4: "Desenvolve estratégias e programas de gestão de talentos para sua área.",
-                            3: "Estrutura processos de desenvolvimento e mentoria para a equipe.",
-                            2: "Atua como mentor, mas sem uma abordagem estruturada.",
-                            1: "Não demonstra interesse ou habilidade em desenvolver outras pessoas."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Estrutura processos de desenvolvimento e mentoria para a equipe.", "Cria um ambiente psicologicamente seguro, onde as pessoas se sentem à vontade para errar e aprender.", "Facilita discussões sobre carreira e desenvolvimento com os membros da equipe."],
-                        regua: {
-                            4: "É um formador de líderes, identificando e preparando futuros sucessores.",
-                            3: "Desenvolve estratégias e programas de gestão de talentos para sua área.",
-                            2: "Facilita discussões de carreira, mas com dificuldade em criar um ambiente seguro.",
-                            1: "Foca no desenvolvimento técnico, mas ignora o aspecto humano da gestão."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Desenvolve estratégias e programas de gestão de talentos para sua área.", "É um formador de líderes, identificando e preparando futuros sucessores.", "Cria uma cultura de alto desempenho baseada no desenvolvimento contínuo e na colaboração."],
-                        regua: {
-                            4: "Cria uma cultura de alto desempenho baseada no desenvolvimento contínuo em toda a organização.",
-                            3: "É um formador de líderes, identificando e preparando futuros sucessores.",
-                            2: "Desenvolve programas de talentos, mas com dificuldade em criar uma cultura de alto desempenho.",
-                            1: "Não demonstra habilidade para identificar ou desenvolver futuros líderes."
-                        }
-                    }
+                   "Assistente": { pistas: ["Demonstra interesse em aprender com os colegas mais experientes.", "Está aberto a receber orientação e feedbacks.", "Participa ativamente de treinamentos e capacitações."], regua: { 4: "Busca ativamente aprender com os outros e aplica os feedbacks recebidos para se desenvolver.", 3: "Mostra-se aberto a aprender e a receber feedbacks.", 2: "Aceita feedbacks, mas tem dificuldade em aplicá-los.", 1: "É resistente a feedbacks e não demonstra interesse em se desenvolver." } },
+                   "Analista I / Dev I": { pistas: ["Está aberto a ajudar e compartilhar conhecimento com colegas.", "Contribui para um ambiente de trabalho positivo e respeitoso.", "Recebe bem a orientação de profissionais mais experientes."], regua: { 4: "Identifica oportunidades de desenvolvimento para si e para os colegas, atuando como mentor informal.", 3: "Oferece ajuda proativamente e participa da integração de novos membros.", 2: "Está aberto a ajudar, mas raramente toma a iniciativa.", 1: "Mostra pouco interesse em compartilhar conhecimento ou ajudar colegas." } },
+                   "Analista II / Dev II": { pistas: ["Oferece ajuda proativamente aos colegas e participa da integração de novos membros.", "Compartilha aprendizados e boas práticas com a equipe.", "Dá e recebe feedbacks de forma construtiva entre pares."], regua: { 4: "Estrutura processos de desenvolvimento e mentoria para a equipe.", 3: "Identifica oportunidades de desenvolvimento e atua como mentor informal.", 2: "Compartilha aprendizados, mas tem dificuldade em dar feedbacks construtivos.", 1: "Foca apenas em seu próprio desenvolvimento, sem contribuir com o time." } },
+                   "Analista III / Dev III": { pistas: ["Identifica oportunidades de desenvolvimento para si e para os colegas.", "Atua como mentor informal para profissionais menos experientes.", "Promove ativamente a colaboração e o compartilhamento de conhecimento na equipe."], regua: { 4: "Desenvolve estratégias e programas de gestão de talentos para sua área.", 3: "Estrutura processos de desenvolvimento e mentoria para a equipe.", 2: "Atua como mentor, mas sem uma abordagem estruturada.", 1: "Não demonstra interesse ou habilidade em desenvolver outras pessoas." } },
+                   "Especialista I / Developer Specialist I": { pistas: ["Estrutura processos de desenvolvimento e mentoria para a equipe.", "Cria um ambiente psicologicamente seguro, onde as pessoas se sentem à vontade para errar e aprender.", "Facilita discussões sobre carreira e desenvolvimento com os membros da equipe."], regua: { 4: "É um formador de líderes, identificando e preparando futuros sucessores.", 3: "Desenvolve estratégias e programas de gestão de talentos para sua área.", 2: "Facilita discussões de carreira, mas com dificuldade em criar um ambiente seguro.", 1: "Foca no desenvolvimento técnico, mas ignora o aspecto humano da gestão." } },
+                   "Especialista II / Developer Specialist II": { pistas: ["Desenvolve estratégias e programas de gestão de talentos para sua área.", "É um formador de líderes, identificando e preparando futuros sucessores.", "Cria uma cultura de alto desempenho baseada no desenvolvimento contínuo e na colaboração."], regua: { 4: "Cria uma cultura de alto desempenho baseada no desenvolvimento contínuo em toda a organização.", 3: "É um formador de líderes, identificando e preparando futuros sucessores.", 2: "Desenvolve programas de talentos, mas com dificuldade em criar uma cultura de alto desempenho.", 1: "Não demonstra habilidade para identificar ou desenvolver futuros líderes." } }
                 }
             },
             {
@@ -571,60 +316,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Trata todos os colegas com respeito e cordialidade.", "Usa uma comunicação clara e respeitosa.", "Contribui para um ambiente de trabalho harmonioso e inclusivo."],
-                        regua: {
-                            4: "Promove ativamente um ambiente respeitoso e é um exemplo de cordialidade.",
-                            3: "Trata todos de forma respeitosa e cordial no dia a dia.",
-                            2: "Pode, ocasionalmente, fazer comentários inadequados ou ser desatento.",
-                            1: "Demonstra comportamentos desrespeitosos com os colegas."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Trata todos os colegas com educação e cordialidade.", "Ouve os outros com atenção e sem interromper.", "É pontual e cumpre com seus compromissos com a equipe."],
-                        regua: {
-                            4: "Valoriza ativamente a diversidade de opiniões e age com integridade em todas as situações.",
-                            3: "Demonstra empatia, tentando entender o ponto de vista dos outros.",
-                            2: "Trata os colegas com educação, mas tem dificuldade em lidar com opiniões divergentes.",
-                            1: "Demonstra impaciência ou desrespeito em suas interações."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Demonstra empatia, tentando entender o ponto de vista dos outros.", "É transparente em sua comunicação e constrói relações de confiança.", "Oferece e pede ajuda, demonstrando espírito de equipe."],
-                        regua: {
-                            4: "Promove ativamente um ambiente de respeito mútuo e segurança psicológica.",
-                            3: "Valoriza ativamente a diversidade de opiniões e age com integridade.",
-                            2: "Demonstra empatia, mas pode ser pouco transparente em sua comunicação.",
-                            1: "Suas ações minam a confiança da equipe."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Valoriza ativamente a diversidade de opiniões e perspectivas.", "Age com integridade e ética em todas as situações.", "É um ponto de apoio para os colegas, oferecendo suporte em momentos difíceis."],
-                        regua: {
-                            4: "Cria as bases para uma cultura organizacional pautada no cuidado e no respeito.",
-                            3: "Promove ativamente um ambiente de respeito e segurança psicológica.",
-                            2: "Valoriza a diversidade, mas tem dificuldade em mediar conflitos com empatia.",
-                            1: "Não consegue oferecer suporte ou construir um ambiente de confiança."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Promove ativamente um ambiente de respeito mútuo e segurança psicológica.", "É um exemplo de conduta ética e transparente, inspirando confiança.", "Media situações de conflito com empatia e foco na solução."],
-                        regua: {
-                            4: "É um guardião dos valores da empresa, garantindo que sejam vividos no dia a dia.",
-                            3: "Cria as bases para uma cultura de cuidado e respeito em sua área.",
-                            2: "É um exemplo de conduta ética, mas com pouca influência na cultura da equipe.",
-                            1: "Tem dificuldade em mediar conflitos, tomando partido ou evitando a situação."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Cria as bases para uma cultura organizacional pautada no cuidado e no respeito.", "É um guardião dos valores da empresa, garantindo que sejam vividos no dia a dia.", "Toma decisões difíceis considerando o impacto humano e o bem-estar das pessoas."],
-                        regua: {
-                            4: "Toma decisões difíceis que equilibram o negócio e o bem-estar das pessoas, sendo referência.",
-                            3: "É um guardião dos valores, criando uma cultura de cuidado e respeito.",
-                            2: "É um guardião dos valores, mas pode hesitar em tomar decisões difíceis que impactam pessoas.",
-                            1: "Suas decisões não refletem os valores de cuidado e respeito da empresa."
-                        }
-                    }
+                    "Assistente": { pistas: ["Trata todos os colegas com respeito e cordialidade.", "Usa uma comunicação clara e respeitosa.", "Contribui para um ambiente de trabalho harmonioso e inclusivo."], regua: { 4: "Promove ativamente um ambiente respeitoso e é um exemplo de cordialidade.", 3: "Trata todos de forma respeitosa e cordial no dia a dia.", 2: "Pode, ocasionalmente, fazer comentários inadequados ou ser desatento.", 1: "Demonstra comportamentos desrespeitosos com os colegas." } },
+                    "Analista I / Dev I": { pistas: ["Trata todos os colegas com educação e cordialidade.", "Ouve os outros com atenção e sem interromper.", "É pontual e cumpre com seus compromissos com a equipe."], regua: { 4: "Valoriza ativamente a diversidade de opiniões e age com integridade em todas as situações.", 3: "Demonstra empatia, tentando entender o ponto de vista dos outros.", 2: "Trata os colegas com educação, mas tem dificuldade em lidar com opiniões divergentes.", 1: "Demonstra impaciência ou desrespeito em suas interações." } },
+                    "Analista II / Dev II": { pistas: ["Demonstra empatia, tentando entender o ponto de vista dos outros.", "É transparente em sua comunicação e constrói relações de confiança.", "Oferece e pede ajuda, demonstrando espírito de equipe."], regua: { 4: "Promove ativamente um ambiente de respeito mútuo e segurança psicológica.", 3: "Valoriza ativamente a diversidade de opiniões e age com integridade.", 2: "Demonstra empatia, mas pode ser pouco transparente em sua comunicação.", 1: "Suas ações minam a confiança da equipe." } },
+                    "Analista III / Dev III": { pistas: ["Valoriza ativamente a diversidade de opiniões e perspectivas.", "Age com integridade e ética em todas as situações.", "É um ponto de apoio para os colegas, oferecendo suporte em momentos difíceis."], regua: { 4: "Cria as bases para uma cultura organizacional pautada no cuidado e no respeito.", 3: "Promove ativamente um ambiente de respeito e segurança psicológica.", 2: "Valoriza a diversidade, mas tem dificuldade em mediar conflitos com empatia.", 1: "Não consegue oferecer suporte ou construir um ambiente de confiança." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Promove ativamente um ambiente de respeito mútuo e segurança psicológica.", "É um exemplo de conduta ética e transparente, inspirando confiança.", "Media situações de conflito com empatia e foco na solução."], regua: { 4: "É um guardião dos valores da empresa, garantindo que sejam vividos no dia a dia.", 3: "Cria as bases para uma cultura de cuidado e respeito em sua área.", 2: "É um exemplo de conduta ética, mas com pouca influência na cultura da equipe.", 1: "Tem dificuldade em mediar conflitos, tomando partido ou evitando a situação." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Cria as bases para uma cultura organizacional pautada no cuidado e no respeito.", "É um guardião dos valores da empresa, garantindo que sejam vividos no dia a dia.", "Toma decisões difíceis considerando o impacto humano e o bem-estar das pessoas."], regua: { 4: "Toma decisões difíceis que equilibram o negócio e o bem-estar das pessoas, sendo referência.", 3: "É um guardião dos valores, criando uma cultura de cuidado e respeito.", 2: "É um guardião dos valores, mas pode hesitar em tomar decisões difíceis que impactam pessoas.", 1: "Suas decisões não refletem os valores de cuidado e respeito da empresa." } }
                 }
             },
             // Essência: Somos Inquietos
@@ -639,60 +336,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Demonstra iniciativa para aprender novas tarefas relacionadas à sua função.", "Sugere pequenas melhorias em suas atividades rotineiras.", "Mostra curiosidade e vontade de entender como as coisas funcionam."],
-                        regua: {
-                            4: "Sugere proativamente melhorias em processos e busca novas responsabilidades.",
-                            3: "Demonstra iniciativa para aprender e otimizar suas tarefas.",
-                            2: "Executa apenas o que é solicitado, sem demonstrar iniciativa.",
-                            1: "É passivo e resistente a novas tarefas ou mudanças."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Mostra iniciativa para aprender e assumir novas tarefas.", "Sugere pequenas melhorias em suas atividades rotineiras.", "É curioso e faz perguntas para entender melhor os processos."],
-                        regua: {
-                            4: "Propõe e lidera projetos de melhoria que geram impacto para a equipe.",
-                            3: "Identifica oportunidades de otimização e assume a responsabilidade por pequenas iniciativas.",
-                            2: "Mostra iniciativa para aprender, mas raramente propõe melhorias.",
-                            1: "É passivo e espera por instruções, sem demonstrar iniciativa."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Identifica oportunidades de otimização em seu trabalho e propõe soluções.", "Assume a responsabilidade por pequenas iniciativas do início ao fim.", "Não se contenta com o 'sempre foi assim' e busca formas melhores de fazer."],
-                        regua: {
-                            4: "Cria e implementa soluções inovadoras que desafiam o padrão do mercado.",
-                            3: "Propõe e lidera projetos de melhoria que geram impacto para a equipe.",
-                            2: "Identifica oportunidades, mas tem dificuldade em tirar as ideias do papel.",
-                            1: "Resiste a mudanças e prefere manter os processos como estão."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Propõe e lidera projetos de melhoria que geram impacto para a equipe.", "Calcula riscos e toma a iniciativa para testar novas ideias.", "Enxerga problemas como oportunidades para inovar."],
-                        regua: {
-                            4: "Lidera a criação de novos negócios, produtos ou serviços.",
-                            3: "Cria e implementa soluções inovadoras que desafiam o padrão do mercado.",
-                            2: "Lidera projetos de melhoria, mas evita assumir riscos maiores.",
-                            1: "Tem boas ideias, mas não consegue implementá-las de forma eficaz."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Cria e implementa soluções inovadoras que desafiam o padrão do mercado.", "Mobiliza recursos e pessoas para transformar ideias em realidade.", "Tem uma atitude de 'dono do negócio', buscando sempre o melhor para a empresa."],
-                        regua: {
-                            4: "Inspira uma cultura de empreendedorismo e inovação em toda a organização.",
-                            3: "Lidera a criação de novos negócios, produtos ou serviços.",
-                            2: "Cria soluções inovadoras, mas com dificuldade em mobilizar recursos e pessoas.",
-                            1: "Não demonstra a atitude de 'dono do negócio' esperada para a senioridade."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Lidera a criação de novos negócios, produtos ou serviços.", "Inspira uma cultura de empreendedorismo e inovação em toda a organização.", "Assume riscos calculados que podem levar a empresa a um novo patamar de sucesso."],
-                        regua: {
-                            4: "Assume riscos calculados que levam a empresa a um novo patamar de sucesso.",
-                            3: "Inspira uma cultura de empreendedorismo e inovação em toda a organização.",
-                            2: "Lidera a criação de novos negócios, mas com aversão a riscos maiores.",
-                            1: "Não consegue transformar sua visão inovadora em resultados de negócio."
-                        }
-                    }
+                    "Assistente": { pistas: ["Demonstra iniciativa para aprender novas tarefas relacionadas à sua função.", "Sugere pequenas melhorias em suas atividades rotineiras.", "Mostra curiosidade e vontade de entender como as coisas funcionam."], regua: { 4: "Sugere proativamente melhorias em processos e busca novas responsabilidades.", 3: "Demonstra iniciativa para aprender e otimizar suas tarefas.", 2: "Executa apenas o que é solicitado, sem demonstrar iniciativa.", 1: "É passivo e resistente a novas tarefas ou mudanças." } },
+                    "Analista I / Dev I": { pistas: ["Mostra iniciativa para aprender e assumir novas tarefas.", "Sugere pequenas melhorias em suas atividades rotineiras.", "É curioso e faz perguntas para entender melhor os processos."], regua: { 4: "Propõe e lidera projetos de melhoria que geram impacto para a equipe.", 3: "Identifica oportunidades de otimização e assume a responsabilidade por pequenas iniciativas.", 2: "Mostra iniciativa para aprender, mas raramente propõe melhorias.", 1: "É passivo e espera por instruções, sem demonstrar iniciativa." } },
+                    "Analista II / Dev II": { pistas: ["Identifica oportunidades de otimização em seu trabalho e propõe soluções.", "Assume a responsabilidade por pequenas iniciativas do início ao fim.", "Não se contenta com o 'sempre foi assim' e busca formas melhores de fazer."], regua: { 4: "Cria e implementa soluções inovadoras que desafiam o padrão do mercado.", 3: "Propõe e lidera projetos de melhoria que geram impacto para a equipe.", 2: "Identifica oportunidades, mas tem dificuldade em tirar as ideias do papel.", 1: "Resiste a mudanças e prefere manter os processos como estão." } },
+                    "Analista III / Dev III": { pistas: ["Propõe e lidera projetos de melhoria que geram impacto para a equipe.", "Calcula riscos e toma a iniciativa para testar novas ideias.", "Enxerga problemas como oportunidades para inovar."], regua: { 4: "Lidera a criação de novos negócios, produtos ou serviços.", 3: "Cria e implementa soluções inovadoras que desafiam o padrão do mercado.", 2: "Lidera projetos de melhoria, mas evita assumir riscos maiores.", 1: "Tem boas ideias, mas não consegue implementá-las de forma eficaz." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Cria e implementa soluções inovadoras que desafiam o padrão do mercado.", "Mobiliza recursos e pessoas para transformar ideias em realidade.", "Tem uma atitude de 'dono do negócio', buscando sempre o melhor para a empresa."], regua: { 4: "Inspira uma cultura de empreendedorismo e inovação em toda a organização.", 3: "Lidera a criação de novos negócios, produtos ou serviços.", 2: "Cria soluções inovadoras, mas com dificuldade em mobilizar recursos e pessoas.", 1: "Não demonstra a atitude de 'dono do negócio' esperada para a senioridade." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Lidera a criação de novos negócios, produtos ou serviços.", "Inspira uma cultura de empreendedorismo e inovação em toda a organização.", "Assume riscos calculados que podem levar a empresa a um novo patamar de sucesso."], regua: { 4: "Assume riscos calculados que levam a empresa a um novo patamar de sucesso.", 3: "Inspira uma cultura de empreendedorismo e inovação em toda a organização.", 2: "Lidera a criação de novos negócios, mas com aversão a riscos maiores.", 1: "Não consegue transformar sua visão inovadora em resultados de negócio." } }
                 }
             },
             {
@@ -710,60 +359,12 @@
                     perguntas: ["Fale sobre uma oportunidade de desenvolvimento em que você evoluiu.", "Como fez para melhorar em algum aspecto comportamental relevante para seu desempenho?"]
                 },
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Busca ativamente por conhecimento para aprimorar suas habilidades.", "Demonstra interesse em crescer profissionalmente.", "Pede ajuda e orientação para se desenvolver."],
-                        regua: {
-                            4: "Busca conhecimento por conta própria e demonstra um claro plano de desenvolvimento.",
-                            3: "Demonstra interesse em aprender e crescer na função.",
-                            2: "Espera que o desenvolvimento seja oferecido pela empresa, sem buscar ativamente.",
-                            1: "Não demonstra interesse em aprender ou se desenvolver."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Mostra curiosidade e disposição para aprender tarefas novas.", "Ouve atentamente os feedbacks e tenta aplicá-los.", "Busca ajuda para se desenvolver em pontos específicos."],
-                        regua: {
-                            4: "Tem um plano de desenvolvimento pessoal e busca recursos para executá-lo.",
-                            3: "Busca ativamente por conhecimento para melhorar seu desempenho na função.",
-                            2: "Mostra disposição para aprender, mas não busca ativamente o desenvolvimento.",
-                            1: "Resiste a feedbacks e não demonstra interesse em aprender."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Busca ativamente por conhecimento para melhorar seu desempenho na função.", "Solicita feedbacks de forma proativa para identificar pontos de melhoria.", "Aplica os aprendizados e feedbacks em suas atividades diárias."],
-                        regua: {
-                            4: "É referência em aprendizado contínuo, explorando novas áreas de conhecimento.",
-                            3: "Tem um plano de desenvolvimento pessoal e demonstra humildade para trabalhar suas vulnerabilidades.",
-                            2: "Busca conhecimento, mas tem dificuldade em aplicar os feedbacks recebidos.",
-                            1: "Não solicita feedbacks e tem dificuldade em reconhecer seus pontos de melhoria."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Tem um plano de desenvolvimento pessoal e busca recursos para executá-lo.", "Demonstra humildade para reconhecer suas vulnerabilidades e trabalhar nelas.", "Utiliza os feedbacks para fazer mudanças comportamentais observáveis."],
-                        regua: {
-                            4: "Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe e organização.",
-                            3: "É referência em aprendizado contínuo e mentora outros profissionais.",
-                            2: "Tem um plano de desenvolvimento, mas com pouca disciplina para segui-lo.",
-                            1: "Não consegue transformar feedbacks em mudanças comportamentais."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["É referência em aprendizado contínuo, explorando novas áreas de conhecimento.", "Busca feedbacks de diversas fontes e os utiliza para se reinventar profissionalmente.", "Mentora outros profissionais em seu desenvolvimento."],
-                        regua: {
-                            4: "Inspira os outros com sua jornada de aprendizado e evolução.",
-                            3: "Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe.",
-                            2: "É referência em aprendizado, mas com pouca atuação como mentor.",
-                            1: "Não busca se reinventar e está estagnado em suas habilidades."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe e organização.", "Está constantemente se desafiando e saindo da sua zona de conforto.", "Inspira os outros com sua jornada de aprendizado e evolução."],
-                        regua: {
-                            4: "Está constantemente se desafiando e saindo da sua zona de conforto, inspirando toda a organização.",
-                            3: "Cria e dissemina uma cultura de autodesenvolvimento e feedback em larga escala.",
-                            2: "Inspira os outros, mas tem dificuldade em criar uma cultura de desenvolvimento sistêmica.",
-                            1: "Não demonstra uma mentalidade de aprendizado contínuo."
-                        }
-                    }
+                    "Assistente": { pistas: ["Busca ativamente por conhecimento para aprimorar suas habilidades.", "Demonstra interesse em crescer profissionalmente.", "Pede ajuda e orientação para se desenvolver."], regua: { 4: "Busca conhecimento por conta própria e demonstra um claro plano de desenvolvimento.", 3: "Demonstra interesse em aprender e crescer na função.", 2: "Espera que o desenvolvimento seja oferecido pela empresa, sem buscar ativamente.", 1: "Não demonstra interesse em aprender ou se desenvolver." } },
+                    "Analista I / Dev I": { pistas: ["Mostra curiosidade e disposição para aprender tarefas novas.", "Ouve atentamente os feedbacks e tenta aplicá-los.", "Busca ajuda para se desenvolver em pontos específicos."], regua: { 4: "Tem um plano de desenvolvimento pessoal e busca recursos para executá-lo.", 3: "Busca ativamente por conhecimento para melhorar seu desempenho na função.", 2: "Mostra disposição para aprender, mas não busca ativamente o desenvolvimento.", 1: "Resiste a feedbacks e não demonstra interesse em aprender." } },
+                    "Analista II / Dev II": { pistas: ["Busca ativamente por conhecimento para melhorar seu desempenho na função.", "Solicita feedbacks de forma proativa para identificar pontos de melhoria.", "Aplica os aprendizados e feedbacks em suas atividades diárias."], regua: { 4: "É referência em aprendizado contínuo, explorando novas áreas de conhecimento.", 3: "Tem um plano de desenvolvimento pessoal e demonstra humildade para trabalhar suas vulnerabilidades.", 2: "Busca conhecimento, mas tem dificuldade em aplicar os feedbacks recebidos.", 1: "Não solicita feedbacks e tem dificuldade em reconhecer seus pontos de melhoria." } },
+                    "Analista III / Dev III": { pistas: ["Tem um plano de desenvolvimento pessoal e busca recursos para executá-lo.", "Demonstra humildade para reconhecer suas vulnerabilidades e trabalhar nelas.", "Utiliza os feedbacks para fazer mudanças comportamentais observáveis."], regua: { 4: "Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe e organização.", 3: "É referência em aprendizado contínuo e mentora outros profissionais.", 2: "Tem um plano de desenvolvimento, mas com pouca disciplina para segui-lo.", 1: "Não consegue transformar feedbacks em mudanças comportamentais." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["É referência em aprendizado contínuo, explorando novas áreas de conhecimento.", "Busca feedbacks de diversas fontes e os utiliza para se reinventar profissionalmente.", "Mentora outros profissionais em seu desenvolvimento."], regua: { 4: "Inspira os outros com sua jornada de aprendizado e evolução.", 3: "Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe.", 2: "É referência em aprendizado, mas com pouca atuação como mentor.", 1: "Não busca se reinventar e está estagnado em suas habilidades." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Cria e dissemina uma cultura de autodesenvolvimento e feedback na equipe e organização.", "Está constantemente se desafiando e saindo da sua zona de conforto.", "Inspira os outros com sua jornada de aprendizado e evolução."], regua: { 4: "Está constantemente se desafiando e saindo da sua zona de conforto, inspirando toda a organização.", 3: "Cria e dissemina uma cultura de autodesenvolvimento e feedback em larga escala.", 2: "Inspira os outros, mas tem dificuldade em criar uma cultura de desenvolvimento sistêmica.", 1: "Não demonstra uma mentalidade de aprendizado contínuo." } }
                 }
             },
             {
@@ -781,60 +382,12 @@
                     perguntas: ["Como você se adaptou a última mudança que passou?", "Qual foi o seu papel nela?"]
                 },
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Adapta-se a novas tarefas e procedimentos quando orientado.", "Demonstra flexibilidade diante de pequenas mudanças na rotina.", "Mantém a compostura diante de imprevistos simples."],
-                        regua: {
-                            4: "Abraça as mudanças com atitude positiva e se adapta rapidamente sem impacto na performance.",
-                            3: "Adapta-se a mudanças e novas tarefas de forma eficaz.",
-                            2: "Demonstra resistência inicial a mudanças, mas acaba se adaptando.",
-                            1: "Resiste fortemente a mudanças e tem a performance afetada."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Aceita bem as mudanças de tarefas e prioridades.", "Mantém a calma diante de imprevistos rotineiros.", "Demonstra vontade de aprender o necessário para se adaptar."],
-                        regua: {
-                            4: "Abraça as mudanças como oportunidades de crescimento e ajuda a equipe a navegar por elas.",
-                            3: "Adapta-se rapidamente a novas ferramentas e processos, lidando bem com a pressão.",
-                            2: "Aceita as mudanças, mas demonstra resistência ou demora para se adaptar.",
-                            1: "Resiste ativamente a mudanças e tem dificuldade em lidar com imprevistos."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Adapta-se rapidamente a novas ferramentas e processos de trabalho.", "Lida de forma construtiva com a pressão e a incerteza.", "Ajusta seu plano de trabalho conforme as prioridades mudam."],
-                        regua: {
-                            4: "Lidera a equipe durante processos de mudança, oferecendo suporte e direção.",
-                            3: "Abraça as mudanças como oportunidades e mantém a produtividade em cenários complexos.",
-                            2: "Adapta-se a novas ferramentas, mas tem dificuldade em gerenciar as emoções sob pressão.",
-                            1: "Sua produtividade cai significativamente em cenários de mudança."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Abraça as mudanças como oportunidades de crescimento e aprendizado.", "Mantém a produtividade e o bom humor mesmo em cenários de grande complexidade.", "Ajuda a equipe a navegar por períodos de transição."],
-                        regua: {
-                            4: "Conduz grandes transformações organizacionais com serenidade e visão estratégica.",
-                            3: "Lidera a equipe durante processos de mudança, inspirando confiança e resiliência.",
-                            2: "Ajuda a equipe a navegar por mudanças, mas demonstra dificuldade em gerenciar a própria resiliência.",
-                            1: "Não consegue se adaptar a cenários complexos, impactando a equipe."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Lidera a equipe durante processos de mudança, oferecendo suporte e direção.", "É resiliente e inspira confiança em momentos de adversidade.", "Antecipa a necessidade de adaptação e prepara a equipe para futuras mudanças."],
-                        regua: {
-                            4: "Transforma a capacidade de adaptação da sua área em uma vantagem competitiva.",
-                            3: "Conduz grandes transformações organizacionais com serenidade e visão.",
-                            2: "Lidera a equipe em mudanças, mas pode não antecipar as necessidades futuras.",
-                            1: "Tem dificuldade em liderar em cenários de incerteza."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Conduz grandes transformações organizacionais com serenidade e visão estratégica.", "É um pilar de estabilidade e resiliência para toda a empresa.", "Transforma a capacidade de adaptação em uma vantagem competitiva."],
-                        regua: {
-                            4: "É um pilar de estabilidade e resiliência para toda a empresa em momentos de crise.",
-                            3: "Transforma a capacidade de adaptação da sua área em uma vantagem competitiva.",
-                            2: "Conduz transformações, mas com dificuldade em ser um pilar de estabilidade.",
-                            1: "Sua falta de resiliência impacta negativamente a organização."
-                        }
-                    }
+                    "Assistente": { pistas: ["Adapta-se a novas tarefas e procedimentos quando orientado.", "Demonstra flexibilidade diante de pequenas mudanças na rotina.", "Mantém a compostura diante de imprevistos simples."], regua: { 4: "Abraça as mudanças com atitude positiva e se adapta rapidamente sem impacto na performance.", 3: "Adapta-se a mudanças e novas tarefas de forma eficaz.", 2: "Demonstra resistência inicial a mudanças, mas acaba se adaptando.", 1: "Resiste fortemente a mudanças e tem a performance afetada." } },
+                    "Analista I / Dev I": { pistas: ["Aceita bem as mudanças de tarefas e prioridades.", "Mantém a calma diante de imprevistos rotineiros.", "Demonstra vontade de aprender o necessário para se adaptar."], regua: { 4: "Abraça as mudanças como oportunidades de crescimento e ajuda a equipe a navegar por elas.", 3: "Adapta-se rapidamente a novas ferramentas e processos, lidando bem com a pressão.", 2: "Aceita as mudanças, mas demonstra resistência ou demora para se adaptar.", 1: "Resiste ativamente a mudanças e tem dificuldade em lidar com imprevistos." } },
+                    "Analista II / Dev II": { pistas: ["Adapta-se rapidamente a novas ferramentas e processos de trabalho.", "Lida de forma construtiva com a pressão e a incerteza.", "Ajusta seu plano de trabalho conforme as prioridades mudam."], regua: { 4: "Lidera a equipe durante processos de mudança, oferecendo suporte e direção.", 3: "Abraça as mudanças como oportunidades e mantém a produtividade em cenários complexos.", 2: "Adapta-se a novas ferramentas, mas tem dificuldade em gerenciar as emoções sob pressão.", 1: "Sua produtividade cai significativamente em cenários de mudança." } },
+                    "Analista III / Dev III": { pistas: ["Abraça as mudanças como oportunidades de crescimento e aprendizado.", "Mantém a produtividade e o bom humor mesmo em cenários de grande complexidade.", "Ajuda a equipe a navegar por períodos de transição."], regua: { 4: "Conduz grandes transformações organizacionais com serenidade e visão estratégica.", 3: "Lidera a equipe durante processos de mudança, inspirando confiança e resiliência.", 2: "Ajuda a equipe a navegar por mudanças, mas demonstra dificuldade em gerenciar a própria resiliência.", 1: "Não consegue se adaptar a cenários complexos, impactando a equipe." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Lidera a equipe durante processos de mudança, oferecendo suporte e direção.", "É resiliente e inspira confiança em momentos de adversidade.", "Antecipa a necessidade de adaptação e prepara a equipe para futuras mudanças."], regua: { 4: "Transforma a capacidade de adaptação da sua área em uma vantagem competitiva.", 3: "Conduz grandes transformações organizacionais com serenidade e visão.", 2: "Lidera a equipe em mudanças, mas pode não antecipar as necessidades futuras.", 1: "Tem dificuldade em liderar em cenários de incerteza." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Conduz grandes transformações organizacionais com serenidade e visão estratégica.", "É um pilar de estabilidade e resiliência para toda a empresa.", "Transforma a capacidade de adaptação em uma vantagem competitiva."], regua: { 4: "É um pilar de estabilidade e resiliência para toda a empresa em momentos de crise.", 3: "Transforma a capacidade de adaptação da sua área em uma vantagem competitiva.", 2: "Conduz transformações, mas com dificuldade em ser um pilar de estabilidade.", 1: "Sua falta de resiliência impacta negativamente a organização." } }
                 }
             },
             // Essência: Buscamos Sucesso Responsável
@@ -849,60 +402,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Demonstra curiosidade para entender o que a empresa faz.", "Entende como suas tarefas contribuem para os objetivos da equipe.", "Faz perguntas para entender o contexto do seu trabalho."],
-                        regua: {
-                            4: "Busca ativamente entender o negócio e como sua área se conecta com outras.",
-                            3: "Demonstra curiosidade e entende a importância do seu trabalho para a equipe.",
-                            2: "Executa as tarefas sem entender o propósito ou o impacto.",
-                            1: "Não demonstra nenhum interesse no negócio ou nos objetivos da empresa."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Entende como suas tarefas se conectam com os objetivos da sua equipe.", "Mostra curiosidade sobre o negócio e como a empresa funciona.", "Realiza seu trabalho com consciência dos custos e recursos envolvidos."],
-                        regua: {
-                            4: "Analisa como suas ações impactam diferentes áreas da empresa e os clientes.",
-                            3: "Compreende os principais indicadores de sucesso da sua área e toma decisões alinhadas.",
-                            2: "Entende os objetivos da equipe, mas tem dificuldade em conectar com a visão do negócio.",
-                            1: "Foca apenas em suas tarefas, sem demonstrar curiosidade sobre o negócio."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Compreende os principais indicadores de sucesso da sua área.", "Toma decisões no dia a dia que estão alinhadas com as metas do time.", "Busca entender o mercado em que a empresa atua."],
-                        regua: {
-                            4: "Tem uma compreensão profunda do modelo de negócio, do mercado e da concorrência.",
-                            3: "Analisa o impacto de suas ações em diferentes áreas e propõe melhorias com base nisso.",
-                            2: "Compreende os indicadores da área, mas tem dificuldade em aplicá-los em suas decisões.",
-                            1: "Não demonstra interesse em entender o mercado ou os indicadores de negócio."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Analisa como suas ações impactam diferentes áreas da empresa e os clientes.", "Utiliza seu conhecimento do negócio para propor melhorias e identificar oportunidades.", "Conecta as metas da sua equipe com a estratégia geral da empresa."],
-                        regua: {
-                            4: "Participa da formulação da estratégia de negócio da empresa.",
-                            3: "Tem uma compreensão profunda do modelo de negócio e contribui para a definição de metas da área.",
-                            2: "Conecta as metas da equipe à estratégia, mas com dificuldade em propor melhorias.",
-                            1: "Não consegue articular como seu trabalho impacta a estratégia da empresa."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Tem uma compreensão profunda do modelo de negócio, do mercado e da concorrência.", "Contribui para a definição de metas e estratégias da sua área.", "Avalia o impacto de longo prazo de suas decisões no ecossistema."],
-                        regua: {
-                            4: "Antecipa tendências de mercado e direciona a empresa para se adaptar a elas.",
-                            3: "Participa da formulação da estratégia de negócio da empresa.",
-                            2: "Contribui para a estratégia da área, mas com pouca visão sobre o ecossistema.",
-                            1: "Foca no técnico e tem dificuldade em desenvolver uma visão de negócio."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Participa da formulação da estratégia de negócio da empresa.", "Antecipa tendências de mercado e direciona a empresa para se adaptar a elas.", "Toma decisões que garantem a perenidade e o sucesso sustentável do negócio."],
-                        regua: {
-                            4: "Toma decisões que garantem a perenidade e o sucesso sustentável do negócio.",
-                            3: "Antecipa tendências de mercado e direciona a empresa para se adaptar.",
-                            2: "Participa da formulação da estratégia, mas com dificuldade em antecipar tendências.",
-                            1: "Não demonstra a visão de negócio estratégica esperada para o nível."
-                        }
-                    }
+                    "Assistente": { pistas: ["Demonstra curiosidade para entender o que a empresa faz.", "Entende como suas tarefas contribuem para os objetivos da equipe.", "Faz perguntas para entender o contexto do seu trabalho."], regua: { 4: "Busca ativamente entender o negócio e como sua área se conecta com outras.", 3: "Demonstra curiosidade e entende a importância do seu trabalho para a equipe.", 2: "Executa as tarefas sem entender o propósito ou o impacto.", 1: "Não demonstra nenhum interesse no negócio ou nos objetivos da empresa." } },
+                    "Analista I / Dev I": { pistas: ["Entende como suas tarefas se conectam com os objetivos da sua equipe.", "Mostra curiosidade sobre o negócio e como a empresa funciona.", "Realiza seu trabalho com consciência dos custos e recursos envolvidos."], regua: { 4: "Analisa como suas ações impactam diferentes áreas da empresa e os clientes.", 3: "Compreende os principais indicadores de sucesso da sua área e toma decisões alinhadas.", 2: "Entende os objetivos da equipe, mas tem dificuldade em conectar com a visão do negócio.", 1: "Foca apenas em suas tarefas, sem demonstrar curiosidade sobre o negócio." } },
+                    "Analista II / Dev II": { pistas: ["Compreende os principais indicadores de sucesso da sua área.", "Toma decisões no dia a dia que estão alinhadas com as metas do time.", "Busca entender o mercado em que a empresa atua."], regua: { 4: "Tem uma compreensão profunda do modelo de negócio, do mercado e da concorrência.", 3: "Analisa o impacto de suas ações em diferentes áreas e propõe melhorias com base nisso.", 2: "Compreende os indicadores da área, mas tem dificuldade em aplicá-los em suas decisões.", 1: "Não demonstra interesse em entender o mercado ou os indicadores de negócio." } },
+                    "Analista III / Dev III": { pistas: ["Analisa como suas ações impactam diferentes áreas da empresa e os clientes.", "Utiliza seu conhecimento do negócio para propor melhorias e identificar oportunidades.", "Conecta as metas da sua equipe com a estratégia geral da empresa."], regua: { 4: "Participa da formulação da estratégia de negócio da empresa.", 3: "Tem uma compreensão profunda do modelo de negócio e contribui para a definição de metas da área.", 2: "Conecta as metas da equipe à estratégia, mas com dificuldade em propor melhorias.", 1: "Não consegue articular como seu trabalho impacta a estratégia da empresa." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Tem uma compreensão profunda do modelo de negócio, do mercado e da concorrência.", "Contribui para a definição de metas e estratégias da sua área.", "Avalia o impacto de longo prazo de suas decisões no ecossistema."], regua: { 4: "Antecipa tendências de mercado e direciona a empresa para se adaptar a elas.", 3: "Participa da formulação da estratégia de negócio da empresa.", 2: "Contribui para a estratégia da área, mas com pouca visão sobre o ecossistema.", 1: "Foca no técnico e tem dificuldade em desenvolver uma visão de negócio." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Participa da formulação da estratégia de negócio da empresa.", "Antecipa tendências de mercado e direciona a empresa para se adaptar a elas.", "Toma decisões que garantem a perenidade e o sucesso sustentável do negócio."], regua: { 4: "Toma decisões que garantem a perenidade e o sucesso sustentável do negócio.", 3: "Antecipa tendências de mercado e direciona a empresa para se adaptar.", 2: "Participa da formulação da estratégia, mas com dificuldade em antecipar tendências.", 1: "Não demonstra a visão de negócio estratégica esperada para o nível." } }
                 }
             },
             {
@@ -916,60 +421,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Utiliza os recursos da empresa (material de escritório, equipamentos) de forma consciente.", "Evita desperdícios em suas atividades diárias.", "Segue as políticas de sustentabilidade e responsabilidade da empresa."],
-                        regua: {
-                            4: "Propõe pequenas ideias para economizar recursos ou ser mais sustentável.",
-                            3: "Utiliza os recursos de forma consciente e evita desperdícios.",
-                            2: "É descuidado com os recursos da empresa, gerando desperdício.",
-                            1: "Demonstra total descaso com os recursos e políticas da empresa."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Utiliza os recursos da empresa de forma consciente, evitando desperdícios óbvios.", "Segue as políticas de sustentabilidade e responsabilidade financeira da empresa.", "Reporta problemas ou oportunidades de melhoria que identifica."],
-                        regua: {
-                            4: "Analisa dados para identificar oportunidades de eficiência e redução de custos.",
-                            3: "Busca ativamente por maneiras de otimizar o uso de recursos em suas tarefas.",
-                            2: "Utiliza os recursos de forma consciente, mas não busca ativamente por otimizações.",
-                            1: "Demonstra descaso com os recursos da empresa."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Busca ativamente por maneiras de otimizar o uso de recursos em suas tarefas.", "Considera o impacto financeiro de suas decisões no dia a dia.", "Propõe pequenas ações para tornar os processos mais sustentáveis."],
-                        regua: {
-                            4: "Desenvolve e implementa projetos de otimização de recursos com impacto significativo.",
-                            3: "Analisa dados para identificar oportunidades de eficiência e gerencia orçamentos com responsabilidade.",
-                            2: "Busca otimizar recursos, mas tem dificuldade em analisar o impacto financeiro.",
-                            1: "Não considera o impacto financeiro ou de sustentabilidade em suas ações."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Analisa dados para identificar oportunidades de eficiência e redução de custos.", "Incorpora a sustentabilidade como um critério em seus projetos e propostas.", "Gerencia orçamentos de projetos com responsabilidade e transparência."],
-                        regua: {
-                            4: "Define estratégias de responsabilidade financeira e sustentabilidade para a organização.",
-                            3: "Desenvolve e implementa projetos de otimização com impacto significativo.",
-                            2: "Gerencia orçamentos, mas com dificuldade em incorporar a sustentabilidade de forma estratégica.",
-                            1: "Não demonstra habilidade para gerenciar orçamentos ou identificar eficiências."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Desenvolve e implementa projetos de otimização de recursos com impacto significativo.", "Influencia a equipe a adotar práticas mais responsáveis e sustentáveis.", "É referência em gestão financeira e sustentabilidade na sua área."],
-                        regua: {
-                            4: "Lidera a implementação de grandes iniciativas que geram valor econômico e socioambiental.",
-                            3: "Define estratégias de responsabilidade financeira e sustentabilidade para sua área.",
-                            2: "É referência em gestão financeira, mas com pouca influência sobre a equipe.",
-                            1: "Não consegue traduzir sua expertise em projetos de otimização."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Define estratégias de responsabilidade financeira e sustentabilidade para a organização.", "Lidera a implementação de grandes iniciativas que geram valor econômico e socioambiental.", "Garante que a cultura de responsabilidade e eficiência permeie toda a empresa."],
-                        regua: {
-                            4: "Garante que a cultura de responsabilidade e eficiência permeie toda a empresa.",
-                            3: "Lidera grandes iniciativas que geram valor econômico e socioambiental.",
-                            2: "Define estratégias, mas com dificuldade em liderar a implementação.",
-                            1: "Não demonstra visão estratégica sobre responsabilidade financeira e sustentabilidade."
-                        }
-                    }
+                    "Assistente": { pistas: ["Utiliza os recursos da empresa (material de escritório, equipamentos) de forma consciente.", "Evita desperdícios em suas atividades diárias.", "Segue as políticas de sustentabilidade e responsabilidade da empresa."], regua: { 4: "Propõe pequenas ideias para economizar recursos ou ser mais sustentável.", 3: "Utiliza os recursos de forma consciente e evita desperdícios.", 2: "É descuidado com os recursos da empresa, gerando desperdício.", 1: "Demonstra total descaso com os recursos e políticas da empresa." } },
+                    "Analista I / Dev I": { pistas: ["Utiliza os recursos da empresa de forma consciente, evitando desperdícios óbvios.", "Segue as políticas de sustentabilidade e responsabilidade financeira da empresa.", "Reporta problemas ou oportunidades de melhoria que identifica."], regua: { 4: "Analisa dados para identificar oportunidades de eficiência e redução de custos.", 3: "Busca ativamente por maneiras de otimizar o uso de recursos em suas tarefas.", 2: "Utiliza os recursos de forma consciente, mas não busca ativamente por otimizações.", 1: "Demonstra descaso com os recursos da empresa." } },
+                    "Analista II / Dev II": { pistas: ["Busca ativamente por maneiras de otimizar o uso de recursos em suas tarefas.", "Considera o impacto financeiro de suas decisões no dia a dia.", "Propõe pequenas ações para tornar os processos mais sustentáveis."], regua: { 4: "Desenvolve e implementa projetos de otimização de recursos com impacto significativo.", 3: "Analisa dados para identificar oportunidades de eficiência e gerencia orçamentos com responsabilidade.", 2: "Busca otimizar recursos, mas tem dificuldade em analisar o impacto financeiro.", 1: "Não considera o impacto financeiro ou de sustentabilidade em suas ações." } },
+                    "Analista III / Dev III": { pistas: ["Analisa dados para identificar oportunidades de eficiência e redução de custos.", "Incorpora a sustentabilidade como um critério em seus projetos e propostas.", "Gerencia orçamentos de projetos com responsabilidade e transparência."], regua: { 4: "Define estratégias de responsabilidade financeira e sustentabilidade para a organização.", 3: "Desenvolve e implementa projetos de otimização com impacto significativo.", 2: "Gerencia orçamentos, mas com dificuldade em incorporar a sustentabilidade de forma estratégica.", 1: "Não demonstra habilidade para gerenciar orçamentos ou identificar eficiências." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Desenvolve e implementa projetos de otimização de recursos com impacto significativo.", "Influencia a equipe a adotar práticas mais responsáveis e sustentáveis.", "É referência em gestão financeira e sustentabilidade na sua área."], regua: { 4: "Lidera a implementação de grandes iniciativas que geram valor econômico e socioambiental.", 3: "Define estratégias de responsabilidade financeira e sustentabilidade para sua área.", 2: "É referência em gestão financeira, mas com pouca influência sobre a equipe.", 1: "Não consegue traduzir sua expertise em projetos de otimização." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Define estratégias de responsabilidade financeira e sustentabilidade para a organização.", "Lidera a implementação de grandes iniciativas que geram valor econômico e socioambiental.", "Garante que a cultura de responsabilidade e eficiência permeie toda a empresa."], regua: { 4: "Garante que a cultura de responsabilidade e eficiência permeie toda a empresa.", 3: "Lidera grandes iniciativas que geram valor econômico e socioambiental.", 2: "Define estratégias, mas com dificuldade em liderar a implementação.", 1: "Não demonstra visão estratégica sobre responsabilidade financeira e sustentabilidade." } }
                 }
             },
             {
@@ -983,60 +440,12 @@
                 ],
                 agilidade: null,
                 esperado: {
-                    "Assistente": {
-                        pistas: ["Trata todas as pessoas com respeito, independentemente de suas diferenças.", "Valoriza e respeita as opiniões dos colegas.", "Contribui para um ambiente de trabalho acolhedor."],
-                        regua: {
-                            4: "Promove ativamente a inclusão em pequenas atitudes e defende o respeito entre colegas.",
-                            3: "Trata todos com respeito e valoriza as diferenças.",
-                            2: "É indiferente ou pode fazer comentários que demonstram falta de consciência.",
-                            1: "Tem atitudes ou faz comentários que excluem ou desrespeitam os outros."
-                        }
-                    },
-                    "Analista I / Dev I": {
-                        pistas: ["Trata todos com respeito, independentemente de suas diferenças.", "Demonstra curiosidade e abertura para aprender sobre diferentes culturas e perspectivas.", "Evita piadas ou comentários que possam ser ofensivos."],
-                        regua: {
-                            4: "Promove ativamente um ambiente onde a diversidade de ideias é valorizada.",
-                            3: "Busca ativamente incluir colegas com diferentes perfis e está ciente de seus vieses.",
-                            2: "Trata todos com respeito, mas não age para promover a inclusão.",
-                            1: "Tem comportamentos ou faz comentários que excluem ou ofendem."
-                        }
-                    },
-                    "Analista II / Dev II": {
-                        pistas: ["Busca ativamente incluir colegas com diferentes perfis nas conversas e atividades.", "Está ciente de seus próprios vieses e se esforça para não agir com base neles.", "Utiliza uma linguagem inclusiva em sua comunicação."],
-                        regua: {
-                            4: "Atua como um aliado e defensor da diversidade e inclusão na sua equipe e área.",
-                            3: "Promove ativamente um ambiente onde a diversidade de ideias é valorizada.",
-                            2: "Busca incluir os colegas, mas tem dificuldade em desafiar comportamentos não inclusivos.",
-                            1: "Não reconhece ou age sobre seus próprios vieses."
-                        }
-                    },
-                    "Analista III / Dev III": {
-                        pistas: ["Promove ativamente um ambiente onde a diversidade de ideias é valorizada.", "Desafia comportamentos ou comentários não inclusivos de forma respeitosa.", "Participa ou apoia iniciativas de diversidade e inclusão na empresa."],
-                        regua: {
-                            4: "Lidera a estratégia de diversidade e inclusão em sua área de atuação.",
-                            3: "Atua como um aliado e defensor da D&I, criando processos e práticas equitativas.",
-                            2: "Promove um ambiente inclusivo, mas não se engaja em iniciativas mais amplas.",
-                            1: "Não consegue desafiar comportamentos não inclusivos."
-                        }
-                    },
-                    "Especialista I / Developer Specialist I": {
-                        pistas: ["Atua como um aliado e defensor da diversidade e inclusão na sua equipe e área.", "Cria processos e práticas que garantem a equidade de oportunidades.", "Mentora pessoas de grupos sub-representados, apoiando seu desenvolvimento."],
-                        regua: {
-                            4: "É um porta-voz da importância da D&I para o sucesso do negócio.",
-                            3: "Lidera a estratégia de D&I em sua área, atuando como porta-voz.",
-                            2: "Atua como um aliado, mas com dificuldade em criar processos equitativos.",
-                            1: "Não demonstra ser um defensor ativo da D&I."
-                        }
-                    },
-                    "Especialista II / Developer Specialist II": {
-                        pistas: ["Lidera a estratégia de diversidade e inclusão em sua área de atuação.", "É um porta-voz da importância da D&I para o sucesso do negócio.", "Cria uma cultura onde todos se sentem seguros, respeitados e pertencentes."],
-                        regua: {
-                            4: "Cria uma cultura onde todos se sentem seguros, respeitados e pertencentes.",
-                            3: "Lidera a estratégia de D&I e atua como porta-voz para o negócio.",
-                            2: "É um porta-voz da D&I, mas com dificuldade em criar uma cultura inclusiva.",
-                            1: "Não consegue traduzir a estratégia de D&I em uma cultura organizacional."
-                        }
-                    }
+                    "Assistente": { pistas: ["Trata todas as pessoas com respeito, independentemente de suas diferenças.", "Valoriza e respeita as opiniões dos colegas.", "Contribui para um ambiente de trabalho acolhedor."], regua: { 4: "Promove ativamente a inclusão em pequenas atitudes e defende o respeito entre colegas.", 3: "Trata todos com respeito e valoriza as diferenças.", 2: "É indiferente ou pode fazer comentários que demonstram falta de consciência.", 1: "Tem atitudes ou faz comentários que excluem ou desrespeitam os outros." } },
+                    "Analista I / Dev I": { pistas: ["Trata todos com respeito, independentemente de suas diferenças.", "Demonstra curiosidade e abertura para aprender sobre diferentes culturas e perspectivas.", "Evita piadas ou comentários que possam ser ofensivos."], regua: { 4: "Promove ativamente um ambiente onde a diversidade de ideias é valorizada.", 3: "Busca ativamente incluir colegas com diferentes perfis e está ciente de seus vieses.", 2: "Trata todos com respeito, mas não age para promover a inclusão.", 1: "Tem comportamentos ou faz comentários que excluem ou ofendem." } },
+                    "Analista II / Dev II": { pistas: ["Busca ativamente incluir colegas com diferentes perfis nas conversas e atividades.", "Está ciente de seus próprios vieses e se esforça para não agir com base neles.", "Utiliza uma linguagem inclusiva em sua comunicação."], regua: { 4: "Atua como um aliado e defensor da diversidade e inclusão na sua equipe e área.", 3: "Promove ativamente um ambiente onde a diversidade de ideias é valorizada.", 2: "Busca incluir os colegas, mas tem dificuldade em desafiar comportamentos não inclusivos.", 1: "Não reconhece ou age sobre seus próprios vieses." } },
+                    "Analista III / Dev III": { pistas: ["Promove ativamente um ambiente onde a diversidade de ideias é valorizada.", "Desafia comportamentos ou comentários não inclusivos de forma respeitosa.", "Participa ou apoia iniciativas de diversidade e inclusão na empresa."], regua: { 4: "Lidera a estratégia de diversidade e inclusão em sua área de atuação.", 3: "Atua como um aliado e defensor da D&I, criando processos e práticas equitativas.", 2: "Promove um ambiente inclusivo, mas não se engaja em iniciativas mais amplas.", 1: "Não consegue desafiar comportamentos não inclusivos." } },
+                    "Especialista I / Developer Specialist I": { pistas: ["Atua como um aliado e defensor da diversidade e inclusão na sua equipe e área.", "Cria processos e práticas que garantem a equidade de oportunidades.", "Mentora pessoas de grupos sub-representados, apoiando seu desenvolvimento."], regua: { 4: "É um porta-voz da importância da D&I para o sucesso do negócio.", 3: "Lidera a estratégia de D&I em sua área, atuando como porta-voz.", 2: "Atua como um aliado, mas com dificuldade em criar processos equitativos.", 1: "Não demonstra ser um defensor ativo da D&I." } },
+                    "Especialista II / Developer Specialist II": { pistas: ["Lidera a estratégia de diversidade e inclusão em sua área de atuação.", "É um porta-voz da importância da D&I para o sucesso do negócio.", "Cria uma cultura onde todos se sentem seguros, respeitados e pertencentes."], regua: { 4: "Cria uma cultura onde todos se sentem seguros, respeitados e pertencentes.", 3: "Lidera a estratégia de D&I e atua como porta-voz para o negócio.", 2: "É um porta-voz da D&I, mas com dificuldade em criar uma cultura inclusiva.", 1: "Não consegue traduzir a estratégia de D&I em uma cultura organizacional." } }
                 }
             }
         ];
@@ -1068,118 +477,131 @@
             }
         ];
 
-        let leadershipActiveSection = 'inicio';
-        let leadershipSelectedEssencia = null;
-        let leadershipCurrentCompetencia = null;
+        // Data for Agilidades visual cues (from the second code)
+        const agilidadesPistas = {
+            "Resultados": {
+                3: ["Não tinha recursos e buscou outras alternativas para viabilizar a entrega necessária.", "Administrou imprevistos e adversidades durante a execução da entregas.", "Mostrou capacidade de surpreender diante da situação apresentada (ex: antecipação de prazos ou novas variáveis a serem consideradas)."],
+                2: ["Apresentou o resultado, mas não gerenciou problemas ou imprevistos durante a execução."],
+                1: ["Atuou como participante de uma entrega, sem conseguir dar clareza de qual foi a sua contribuição/assinatura.", "Lidou com a pressão, mas teve alto nível de sofrimento para essa entrega.", "Não trouxe nada que tirou ele da zona de conforto ou que tenha sido desafiado.", "Define sua entrega como “normal”."]
+            },
+            "Mental": {
+                3: ["Conecta informações de fontes diferentes (Se você fosse abrir uma empresa hoje, o que vc levaria em conta?)", "Estrutura pensamento, do macro para o micro.", "Clareza na explicação dos seus pontos, facilidade de entendimento (não é só sobre forma de comunicação, mas sobre estruturação do pensamento em diferentes contextos)."],
+                2: ["Pessoa constrói pensamento, mas dentro da sua zona de conforto - não explora caminhos menos óbvios e desconhecidos."],
+                1: ["Dificuldade em explicar modelo mental de pensamento.", "É muito tático na estruturação do seu pensamento."]
+            },
+            "Alianças": {
+                3: ["Consegue dialogar com interfaces/pessoas que tenham diferentes interesses e trazer um ponto de consenso, direcionando a conversa para uma solução em comum (“ganha-ganha”).", "Antecipa a visão das pessoas, lê o cenário e entende o que ela pode trazer para garantir que as decisões serão tomadas de maneira colegiada.", "Busca com proatividade entender os diferentes contextos de áreas/pessoas para considerar o todo (olhar macro), construindo melhores conexões para resolução dos temas."],
+                2: ["Consegue atuar em sinergia com diferentes interfaces, mas precisa de estímulos mais direcionados. Não é tão natural ou intuitivo.", "Tem dependência da liderança para navegar em contextos políticos mais complexos, com diferentes intereses ou múltiplas interfaces."],
+                1: ["Traz na fala 'nós', mas não tem uma postura que seja efetiva na negociação ou busca do senso comum.", "Segue pela maioria sem se posicionar. Concorda por comodismo."]
+            },
+            "Autoconhecimento": {
+                3: ["Consegue implementar a mudança de comportamento com rapidez, trás evidência de situações com comportamento “novo”.", "Consegue trazer exemplos de sair da zona de conforto do seu perfil comportamental, muda mesmo que desconfortável."],
+                2: ["Pede feedback e tem consciência da necessidade de mudar com rapidez, mas nos exemplos traz necessidade de mais feedbacks para impulsionar a mudança ou ainda não consegue trazer o 'efeito' da mudança a tempo de prevenir futuros problemas.", "Demonstra que necessita muito esforço para chegar até a mudança (interno e/ou externo)."],
+                1: ["Não traz pontos de evolução pessoal ou não consegue conectar com necessidade de mudança.", "Não consegue exemplificar mudanças de comportamento práticas (situações) após o feedback/reconhecimento.", "Justifica feedbacks recebidos por fatores externos e não consegue trazer a oportunidade de evolução para si.", "Não busca ativamente feedback (não consegue nomear quais as pessoas/momentos que buscou ativamente feedback)."]
+            },
+            "Mudanças": {
+                3: ["Pessoas que gostam de enfrentar desafios de mudança, pegam para si liderando e provando o sistema/organização para a mudança. (Exemplo: consegue influenciar à favor da mudança e deixa claro qual foi a resistência).", "Conseguiu a parceria/apoio de outras pessoas e áreas para a implementação da mudança."],
+                2: ["Propôs a mudança saindo da zona de conforto, mas não foi algo que precisou enfrentar desafios/articulação. (Exemplo: mudança que o time já queria fazer, que as pessoas já estavam compradas."],
+                1: ["Não conseguem trazer evidências de alguma mudança que propôs e implementou.", "Não consegue mostrar a própria atuação na mudança: traz como algo do time e quando perguntado sobre a própria atuação não consegue trazer evidências.", "Reativo às mudanças (Exemplo: não gosto de mudanças, reativo, gosto de cenários confortáveis).", "Passividade em relação às mudanças."]
+            }
+        };
 
-        function showLeadershipSection(sectionId) {
-            leadershipActiveSection = sectionId;
+        let activeSection = 'inicio';
+        let selectedEssencia = null;
+        let currentCompetencia = null;
+
+        function showSection(sectionId) {
+            activeSection = sectionId;
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active', 'fade-in');
             });
-            document.getElementById(`section-${sectionId}`).classList.add('active', 'fade-in');
+            const sectionToShow = document.getElementById(`section-${sectionId}`);
+            if (sectionToShow) {
+                sectionToShow.classList.add('active', 'fade-in');
+            }
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
-            document.getElementById(`nav-${sectionId}`).classList.add('active');
+            const navLink = document.getElementById(`nav-${sectionId}`);
+            if (navLink) {
+                navLink.classList.add('active');
+            }
             window.scrollTo(0, 0);
         }
 
-        function renderLeadershipAccordion() {
+        function renderAccordion() {
             const container = document.getElementById('accordion-container');
-            container.innerHTML = leadershipInterviewPhases.map((phase, index) => `
+            if (!container) return;
+
+            container.innerHTML = leadershipInterviewPhases.map((phase) => `
                 <div class="border border-slate-200 rounded-lg">
                     <button class="accordion-toggle w-full flex justify-between items-center p-4 text-left font-semibold text-slate-700 hover:bg-slate-50">
                         <span>${phase.title}</span>
                         <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
-                        <div class="p-4 pt-0 text-slate-600">
-                            ${phase.content}
-                        </div>
+                        <div class="p-4 pt-0 text-slate-600">${phase.content}</div>
                     </div>
                 </div>
             `).join('');
-
-            document.querySelectorAll('.accordion-toggle').forEach(button => {
-                button.addEventListener('click', () => {
-                    const content = button.nextElementSibling;
-                    const svg = button.querySelector('svg');
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                        svg.classList.remove('rotate-180');
-                    } else {
-                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-                        document.querySelectorAll('.accordion-toggle svg').forEach(s => s.classList.remove('rotate-180'));
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        svg.classList.add('rotate-180');
-                    }
-                });
-            });
         }
-        
-        function renderLeadershipEssencias() {
+
+        function renderEssencias() {
             const container = document.getElementById('essencias-container');
+            if (!container) return;
+
             const essencias = [...new Set(leadershipSkillData.map(item => item.essencia))];
             container.innerHTML = essencias.map(essencia => `
-                <div class="essencia-card border-2 border-slate-200 p-4 rounded-lg hover:border-indigo-400 hover:shadow-md" onclick="selectLeadershipEssencia('${essencia}')">
-                    <h4 class="font-bold text-lg text-slate-800">${essencia}</h4>
+                <div class="essencia-card border-2 border-slate-200 p-4 rounded-lg hover:border-indigo-400 hover:shadow-md" data-essencia="${essencia}">
+                    <h4 class="font-bold text-lg text-slate-800 pointer-events-none">${essencia}</h4>
                 </div>
             `).join('');
         }
 
-        function selectLeadershipEssencia(essenciaName) {
-            leadershipSelectedEssencia = essenciaName;
+        function selectEssencia(essenciaName) {
+            selectedEssencia = essenciaName;
             
             document.querySelectorAll('.essencia-card').forEach(card => card.classList.remove('selected'));
-            const selectedCard = Array.from(document.querySelectorAll('.essencia-card')).find(card => card.querySelector('h4').textContent === essenciaName);
+            const selectedCard = document.querySelector(`.essencia-card[data-essencia="${essenciaName}"]`);
             if(selectedCard) selectedCard.classList.add('selected');
 
             const filteredCompetencias = leadershipSkillData.filter(item => item.essencia === essenciaName);
-            renderLeadershipCompetencias(filteredCompetencias);
+            renderCompetencias(filteredCompetencias);
             
-            document.getElementById('competencias-section').classList.remove('hidden');
-             document.getElementById('competencias-section').classList.add('fade-in');
+            const competenciasSection = document.getElementById('competencias-section');
+            competenciasSection.classList.remove('hidden');
+            competenciasSection.classList.add('fade-in');
             document.getElementById('detalhe-competencia-section').classList.add('hidden');
         }
 
-        function renderLeadershipCompetencias(competencias) {
+        function renderCompetencias(competencias) {
             const container = document.getElementById('competencias-container');
+            if(!container) return;
+
             container.innerHTML = competencias.map(item => `
-                <div class="competencia-card border border-slate-200 p-4 rounded-lg hover:bg-slate-100" onclick="showLeadershipCompetenciaDetail('${item.competencia}')">
-                    <h5 class="font-semibold text-md text-slate-700">${item.competencia}</h5>
+                <div class="competencia-card border border-slate-200 p-4 rounded-lg hover:bg-slate-100" data-competencia="${item.competencia}">
+                    <h5 class="font-semibold text-md text-slate-700 pointer-events-none">${item.competencia}</h5>
                 </div>
             `).join('');
         }
 
-        function showLeadershipCompetenciaDetail(competenciaName) {
-            leadershipCurrentCompetencia = leadershipSkillData.find(item => item.competencia === competenciaName);
-            if (!leadershipCurrentCompetencia) return;
+        function showCompetenciaDetail(competenciaName) {
+            currentCompetencia = leadershipSkillData.find(item => item.competencia === competenciaName);
+            if (!currentCompetencia) return;
 
             const container = document.getElementById('detalhe-competencia-section');
-            const cargos = Object.keys(leadershipCurrentCompetencia.esperado);
+            const cargos = Object.keys(currentCompetencia.esperado);
 
             container.innerHTML = `
-                <h4 class="text-2xl font-bold text-indigo-700 mb-2">${leadershipCurrentCompetencia.competencia}</h4>
-                <p class="text-slate-600 mb-6 italic">"${leadershipCurrentCompetencia.conceito}"</p>
+                <h4 class="text-2xl font-bold text-indigo-700 mb-2">${currentCompetencia.competencia}</h4>
+                <p class="text-slate-600 mb-6 italic">"${currentCompetencia.conceito}"</p>
                 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h5 class="font-semibold text-lg text-slate-800 mb-3">Perguntas Sugeridas</h5>
-                        <ul class="list-disc pl-5 space-y-3 text-slate-700">
-                            ${leadershipCurrentCompetencia.perguntas.map(q => `<li>${q}</li>`).join('')}
-                        </ul>
-                    </div>
-                    ${leadershipCurrentCompetencia.agilidade ? `
-                    <div class="bg-indigo-50 p-4 rounded-lg">
-                        <h5 class="font-semibold text-lg text-indigo-800 mb-3">Visão de Agilidade: ${leadershipCurrentCompetencia.agilidade.nome}</h5>
-                         <p class="text-indigo-700 mb-4 text-sm italic">"${leadershipCurrentCompetencia.agilidade.conceito}"</p>
-                        <ul class="list-disc pl-5 space-y-3 text-sm text-indigo-700">
-                            ${leadershipCurrentCompetencia.agilidade.perguntas.map(q => `<li>${q}</li>`).join('')}
-                        </ul>
-                    </div>
-                    ` : '<div></div>'}
+                <div class="mb-6">
+                    <h5 class="font-semibold text-lg text-slate-800 mb-3">Perguntas Sugeridas</h5>
+                    <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                        ${currentCompetencia.perguntas.map(q => `<li>${q}</li>`).join('')}
+                    </ul>
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-slate-200">
@@ -1189,28 +611,25 @@
                             ${cargos.map(cargo => `<option value="${cargo}">${cargo}</option>`).join('')}
                         </select>
                     </div>
-                    <div id="pistas-visuais-container" class="bg-white p-4 rounded-md border">
-                        <!-- Pistas e régua serão injetadas aqui -->
-                    </div>
+                    <div id="pistas-visuais-container" class="bg-white p-4 rounded-md border"></div>
                 </div>
             `;
             
-            renderLeadershipPistasVisuais(cargos[0]);
+            renderPistasVisuais(cargos[0]);
 
             const selector = document.getElementById('cargo-selector');
-            selector.addEventListener('change', (e) => {
-                renderLeadershipPistasVisuais(e.target.value);
-            });
+            selector?.addEventListener('change', (e) => renderPistasVisuais(e.target.value));
 
             container.classList.remove('hidden');
             container.classList.add('fade-in');
             container.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function renderLeadershipPistasVisuais(cargo) {
-            if (!leadershipCurrentCompetencia) return;
+        function renderPistasVisuais(cargo) {
+            if (!currentCompetencia) return;
             const pistasContainer = document.getElementById('pistas-visuais-container');
-            const data = leadershipCurrentCompetencia.esperado[cargo];
+            const data = currentCompetencia.esperado[cargo];
+            if (!data || !data.regua) return;
             const regua = data.regua;
 
             pistasContainer.innerHTML = `
@@ -1225,34 +644,128 @@
                     <div class="space-y-3">
                         <div class="p-3 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
                             <b class="text-green-800">Muda o Jogo:</b>
-                            <p class="text-sm text-green-700">${regua[4]}</p>
+                            <p class="text-sm text-green-700 mt-1">${regua[4]}</p>
                         </div>
                         <div class="p-3 bg-blue-100 border-l-4 border-blue-500 rounded-r-lg">
                             <b class="text-blue-800">Faz Bonito:</b>
-                            <p class="text-sm text-blue-700">${regua[3]}</p>
+                            <p class="text-sm text-blue-700 mt-1">${regua[3]}</p>
                         </div>
                         <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg">
                             <b class="text-yellow-800">Pode Mais:</b>
-                            <p class="text-sm text-yellow-700">${regua[2]}</p>
+                            <p class="text-sm text-yellow-700 mt-1">${regua[2]}</p>
                         </div>
                         <div class="p-3 bg-red-100 border-l-4 border-red-500 rounded-r-lg">
                             <b class="text-red-800">Precisa Agir:</b>
-                            <p class="text-sm text-red-700">${regua[1]}</p>
+                            <p class="text-sm text-red-700 mt-1">${regua[1]}</p>
                         </div>
                     </div>
                 </div>
             `;
         }
 
+        function renderAgilidades() {
+            const container = document.getElementById('agilidades-container');
+            if (!container) return;
+
+            const agilidadesMap = new Map();
+            leadershipSkillData.forEach(item => {
+                if (item.agilidade) {
+                    agilidadesMap.set(item.agilidade.nome, item.agilidade);
+                }
+            });
+
+            const uniqueAgilidades = [...agilidadesMap.values()];
+
+            container.innerHTML = uniqueAgilidades.map(agilidade => {
+                const pistas = agilidadesPistas[agilidade.nome] || { 3: [], 2: [], 1: [] };
+                return `
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col">
+                    <div class="flex-grow">
+                        <h2 class="text-2xl font-bold text-indigo-600 mb-2">${agilidade.nome}</h2>
+                        <p class="text-slate-600 mb-5 italic">"${agilidade.conceito}"</p>
+                        
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-slate-800 mb-3 border-b border-slate-200 pb-2">Perguntas Investigativas</h3>
+                            <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                                ${agilidade.perguntas.map(q => `<li>${q}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto pt-6 border-t border-slate-200">
+                         <h6 class="font-semibold text-slate-600 mb-3">Régua de Avaliação:</h6>
+                         <div class="space-y-3">
+                            <div class="p-3 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
+                                <b class="text-green-800">É Destaque:</b>
+                                <ul class="list-disc list-inside text-sm text-green-700 space-y-1 mt-1">${(pistas[3] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                            <div class="p-3 bg-blue-100 border-l-4 border-blue-500 rounded-r-lg">
+                                <b class="text-blue-800">Apresenta:</b>
+                                <ul class="list-disc list-inside text-sm text-blue-700 space-y-1 mt-1">${(pistas[2] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                            <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg">
+                                <b class="text-yellow-800">Tem Oportunidade:</b>
+                                <ul class="list-disc list-inside text-sm text-yellow-700 space-y-1 mt-1">${(pistas[1] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function switchTab(activeTabId) {
+            const tabs = [
+                { btn: document.getElementById('tab-competencias'), view: document.getElementById('view-competencias') },
+                { btn: document.getElementById('tab-agilidades'), view: document.getElementById('view-agilidades') }
+            ];
+
+            tabs.forEach(tab => {
+                if (tab.btn.id === activeTabId) {
+                    tab.btn.classList.add('active');
+                    tab.btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+                    tab.view.classList.remove('hidden');
+                    tab.view.classList.add('fade-in');
+                } else {
+                    tab.btn.classList.remove('active');
+                    tab.btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+                    tab.view.classList.add('hidden');
+                    tab.view.classList.remove('fade-in');
+                }
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
-            showLeadershipSection('inicio');
-            renderLeadershipAccordion();
-            renderLeadershipEssencias();
+            showSection('inicio');
+            renderAccordion();
+            renderEssencias();
+            renderAgilidades();
 
-            document.getElementById('nav-inicio').addEventListener('click', (e) => { e.preventDefault(); showLeadershipSection('inicio'); });
-            document.getElementById('nav-fases').addEventListener('click', (e) => { e.preventDefault(); showLeadershipSection('fases'); });
-            document.getElementById('nav-arvore').addEventListener('click', (e) => { e.preventDefault(); showLeadershipSection('arvore'); });
+            document.getElementById('nav-inicio')?.addEventListener('click', (e) => { e.preventDefault(); showSection('inicio'); });
+            document.getElementById('nav-fases')?.addEventListener('click', (e) => { e.preventDefault(); showSection('fases'); });
+            document.getElementById('nav-matriz')?.addEventListener('click', (e) => { e.preventDefault(); showSection('matriz'); });
+            
+            document.getElementById('tab-competencias')?.addEventListener('click', () => switchTab('tab-competencias'));
+            document.getElementById('tab-agilidades')?.addEventListener('click', () => switchTab('tab-agilidades'));
+
+            document.body.addEventListener('click', (e) => {
+                const sectionButton = e.target.closest('button[data-section]');
+                if (sectionButton) {
+                    showSection(sectionButton.dataset.section);
+                    return;
+                }
+                
+                const essenciaCard = e.target.closest('.essencia-card');
+                if (essenciaCard) {
+                    selectEssencia(essenciaCard.dataset.essencia);
+                    return;
+                }
+
+                const competenciaCard = e.target.closest('.competencia-card');
+                if (competenciaCard) {
+                    showCompetenciaDetail(competenciaCard.dataset.competencia);
+                    return;
+                }
+            });
         });
     </script>
 </body>
