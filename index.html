@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -105,7 +105,7 @@
                     <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
                         <h3 class="text-xl font-semibold text-indigo-800">🌳 Matriz de Avaliação</h3>
                         <p class="mb-4">Explore as nossas essências culturais e investigue como os candidatos as demonstram em suas experiências, independentemente da senioridade.</p>
-                         <button data-section="matriz" class="mt-4 inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">Explorar a Matriz</button>
+                          <button data-section="matriz" class="mt-4 inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">Explorar a Matriz</button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 <div id="view-agilidades" class="tab-view hidden">
                      <p class="text-slate-600 mb-8">Uma visão focada nos pilares de Potencial, extraídos da Matriz de Competências.</p>
                      <div id="agilidades-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Cards de agilidade serão gerados via JavaScript -->
+                         <!-- Cards de agilidade serão gerados via JavaScript -->
                     </div>
                 </div>
 
@@ -695,19 +695,19 @@
                     <div class="mt-auto pt-6 border-t border-slate-200">
                          <h6 class="font-semibold text-slate-600 mb-3">Régua de Avaliação:</h6>
                          <div class="space-y-3">
-                            <div class="p-3 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
-                                <b class="text-green-800">É Destaque:</b>
-                                <ul class="list-disc list-inside text-sm text-green-700 space-y-1 mt-1">${(pistas[3] || []).map(item => `<li>${item}</li>`).join('')}</ul>
-                            </div>
-                            <div class="p-3 bg-blue-100 border-l-4 border-blue-500 rounded-r-lg">
-                                <b class="text-blue-800">Apresenta:</b>
-                                <ul class="list-disc list-inside text-sm text-blue-700 space-y-1 mt-1">${(pistas[2] || []).map(item => `<li>${item}</li>`).join('')}</ul>
-                            </div>
-                            <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg">
-                                <b class="text-yellow-800">Tem Oportunidade:</b>
-                                <ul class="list-disc list-inside text-sm text-yellow-700 space-y-1 mt-1">${(pistas[1] || []).map(item => `<li>${item}</li>`).join('')}</ul>
-                            </div>
-                        </div>
+                             <div class="p-3 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
+                                 <b class="text-green-800">É Destaque:</b>
+                                 <ul class="list-disc list-inside text-sm text-green-700 space-y-1 mt-1">${(pistas[3] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                             </div>
+                             <div class="p-3 bg-blue-100 border-l-4 border-blue-500 rounded-r-lg">
+                                 <b class="text-blue-800">Apresenta:</b>
+                                 <ul class="list-disc list-inside text-sm text-blue-700 space-y-1 mt-1">${(pistas[2] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                             </div>
+                             <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg">
+                                 <b class="text-yellow-800">Tem Oportunidade:</b>
+                                 <ul class="list-disc list-inside text-sm text-yellow-700 space-y-1 mt-1">${(pistas[1] || []).map(item => `<li>${item}</li>`).join('')}</ul>
+                             </div>
+                         </div>
                     </div>
                 </div>
             `}).join('');
@@ -735,34 +735,67 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Funções de renderização inicial
             showSection('inicio');
             renderAccordion();
             renderEssencias();
             renderAgilidades();
 
+            // Listeners para a navegação principal
             document.getElementById('nav-inicio')?.addEventListener('click', (e) => { e.preventDefault(); showSection('inicio'); });
             document.getElementById('nav-fases')?.addEventListener('click', (e) => { e.preventDefault(); showSection('fases'); });
             document.getElementById('nav-matriz')?.addEventListener('click', (e) => { e.preventDefault(); showSection('matriz'); });
             
+            // Listeners para as abas da Matriz
             document.getElementById('tab-competencias')?.addEventListener('click', () => switchTab('tab-competencias'));
             document.getElementById('tab-agilidades')?.addEventListener('click', () => switchTab('tab-agilidades'));
 
+            // Listener de clique centralizado para interações dinâmicas (delegação de eventos)
             document.body.addEventListener('click', (e) => {
+                // Handler para os botões que trocam de seção
                 const sectionButton = e.target.closest('button[data-section]');
                 if (sectionButton) {
                     showSection(sectionButton.dataset.section);
                     return;
                 }
                 
+                // Handler para os cards de essência
                 const essenciaCard = e.target.closest('.essencia-card');
                 if (essenciaCard) {
                     selectEssencia(essenciaCard.dataset.essencia);
                     return;
                 }
 
+                // Handler para os cards de competência
                 const competenciaCard = e.target.closest('.competencia-card');
                 if (competenciaCard) {
                     showCompetenciaDetail(competenciaCard.dataset.competencia);
+                    return;
+                }
+
+                // --- CORREÇÃO ADICIONADA AQUI ---
+                // Handler para os botões do acordeão
+                const accordionToggle = e.target.closest('.accordion-toggle');
+                if (accordionToggle) {
+                    const content = accordionToggle.nextElementSibling;
+                    const icon = accordionToggle.querySelector('svg');
+
+                    if (content.style.maxHeight) {
+                        // Se já está aberto, fecha
+                        content.style.maxHeight = null;
+                        icon.classList.remove('rotate-180');
+                    } else {
+                        // Se está fechado, abre
+                        // Opcional: fecha os outros para manter apenas um aberto
+                        document.querySelectorAll('.accordion-content').forEach(item => {
+                            item.style.maxHeight = null;
+                            const otherIcon = item.previousElementSibling.querySelector('svg');
+                            if(otherIcon) otherIcon.classList.remove('rotate-180');
+                        });
+                        
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.classList.add('rotate-180');
+                    }
                     return;
                 }
             });
